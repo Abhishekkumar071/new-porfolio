@@ -1,4 +1,5 @@
 // Shared pieces for the ledger-style lists (ratings, work, experience).
+import { ExternalIcon } from './Icons.jsx'
 
 export function EntriesHead({ labels }) {
   return (
@@ -10,7 +11,7 @@ export function EntriesHead({ labels }) {
   )
 }
 
-export function StaticEntry({ date, title, sub, body, result, href }) {
+export function StaticEntry({ date, title, sub, body, result, href, linkText = 'View on GitHub' }) {
   return (
     <div className="entry">
       <div className="entry__row cols">
@@ -25,8 +26,31 @@ export function StaticEntry({ date, title, sub, body, result, href }) {
         </span>
         <div className="c-title">
           <h3 className="entry__title">{title}</h3>
-          {sub ? <span className="entry__sub">{sub}</span> : null}
+          {sub ? (
+            <span className="entry__sub">
+              {href ? (
+                <a
+                  className="link link--quiet"
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ textDecoration: 'underline', textUnderlineOffset: '3px' }}
+                >
+                  {sub}
+                </a>
+              ) : (
+                sub
+              )}
+            </span>
+          ) : null}
           {body ? <p className="entry__body">{body}</p> : null}
+          {href ? (
+            <div style={{ marginTop: '0.65rem' }}>
+              <a className="link link--small" href={href} target="_blank" rel="noreferrer">
+                {linkText} <ExternalIcon />
+              </a>
+            </div>
+          ) : null}
         </div>
         <span className="entry__result c-result">{result}</span>
       </div>

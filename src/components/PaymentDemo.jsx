@@ -14,9 +14,9 @@ export default function PaymentDemo() {
   const [rows, setRows] = useState([])
   const [request, setRequest] = useState(null)
   const [response, setResponse] = useState(null)
-  const [note, setNote] = useState('Press “Send ' + inr(AMOUNT) + '” to post a payment.')
+  const [note, setNote] = useState('Press “Send ' + inr(AMOUNT) + '” or click “Auto-Demo” to watch.')
+  const [autoSimulating, setAutoSimulating] = useState(false)
 
-  // The “server”: remembers which keys it has already processed.
   const server = useRef({ seen: new Map(), count: 0, rowId: 0 })
 
   const post = (key, isRetry) => {
@@ -27,7 +27,7 @@ export default function PaymentDemo() {
       const ref = s.seen.get(key)
       setRows((r) => [...r, { id, kind: 'replay', ref, key }])
       setResponse({ ok: true, status: '200 OK', text: `Key already seen. Returned ${ref}. Nothing charged.` })
-      setNote('The server recognised the key and sent back the original result. Your balance did not change.')
+      setNote('The server recognized the unique key and safely sent back the original receipt. Balance stayed safe!')
       return
     }
 
@@ -38,7 +38,7 @@ export default function PaymentDemo() {
     setResponse({ ok: !isRetry, status: '201 Created', text: `Created ${ref}. Charged ${inr(AMOUNT)}.` })
     setNote(
       isRetry
-        ? 'The server is not checking keys, so the retry was treated as a brand-new payment. The customer paid twice.'
+        ? 'Without key checking, the retry was treated as a brand-new payment. The customer got charged twice!'
         : FIRST_NOTE,
     )
   }
@@ -58,10 +58,29 @@ export default function PaymentDemo() {
     setRows([])
     setRequest(null)
     setResponse(null)
-    setNote('Press “Send ' + inr(AMOUNT) + '” to post a payment.')
+    setAutoSimulating(false)
+    setNote('Press “Send ' + inr(AMOUNT) + '” or click “Auto-Demo” to watch.')
   }
 
-  // Everything below is derived from state, so it stays in sync.
+  // Automatic simulation that runs the scenario automatically
+  const runAutoDemo = () => {
+    reset()
+    setAutoSimulating(true)
+    setCheckKey(true)
+
+    const key = newKey()
+    setRequest({ key })
+
+    setTimeout(() => {
+      post(key, false)
+      setTimeout(() => {
+        post(key, true)
+        setAutoSimulating(false)
+      }, 1400)
+    }, 400)
+  }
+
+  // Pure derived state
   const ledger = rows.map((r, i) => {
     const debitsUpToHere = rows.slice(0, i + 1).filter((x) => x.kind === 'debit').length
     return { ...r, balance: START_BALANCE - debitsUpToHere * AMOUNT }
@@ -76,19 +95,34 @@ export default function PaymentDemo() {
   return (
     <section className="pay" aria-labelledby="pay-title">
       <div className="pay__bar">
-        <h2 id="pay-title" className="pay__title">
-          Post a payment, then retry it
-        </h2>
-        <label className="switch">
-          <input
-            type="checkbox"
-            role="switch"
-            checked={checkKey}
-            onChange={(e) => setCheckKey(e.target.checked)}
-          />
-          <span className="switch__track" aria-hidden="true" />
-          <span>Server checks the idempotency key</span>
-        </label>
+        <div>
+          <span className="pay__tag">Interactive Backend Simulation</span>
+          <h2 id="pay-title" className="pay__title">
+            Post a payment, then retry it
+          </h2>
+        </div>
+        <div className="pay__bar-controls">
+          <button
+            type="button"
+            className={`btn-auto-sim ${autoSimulating ? 'btn-auto-sim--active' : ''}`}
+            onClick={runAutoDemo}
+            disabled={autoSimulating}
+          >
+            <span className="auto-toggle__dot" />
+            <span>{autoSimulating ? 'Simulating Retry…' : 'Watch Auto-Demo ▶'}</span>
+          </button>
+
+          <label className="switch">
+            <input
+              type="checkbox"
+              role="switch"
+              checked={checkKey}
+              onChange={(e) => setCheckKey(e.target.checked)}
+            />
+            <span className="switch__track" aria-hidden="true" />
+            <span>Check idempotency key</span>
+          </label>
+        </div>
       </div>
 
       <div className="pay__body">
@@ -97,9 +131,9 @@ export default function PaymentDemo() {
           <pre className="code">
             <span>POST /transfers</span>
             {'\n'}
-            <span>Idempotency-Key: {request ? request.key : '(created when you send)'}</span>
+            <span>Idempotency-Key: {request ? request.key : '(created on send)'}</span>
             {'\n'}
-            <span>{`{ "to": "9034", "amount": ${AMOUNT} }`}</span>
+            <span>{`{ "to": "Savings_9034", "amount": ${AMOUNT} }`}</span>
           </pre>
           <p className="pay__label">What the server answers</p>
           <pre className="code">
@@ -118,7 +152,7 @@ export default function PaymentDemo() {
         <div className="pay__ledger">
           <div className="pay__head">
             <div>
-              <p className="pay__label">Savings 4821</p>
+              <p className="pay__label">Account 4821</p>
               <p className="pay__balance">{inr(balance)}</p>
             </div>
             {chargedTwice ? (
@@ -129,7 +163,7 @@ export default function PaymentDemo() {
           </div>
 
           {ledger.length === 0 ? (
-            <p className="pay__empty">No entries yet. Send a payment to post the first one.</p>
+            <p className="pay__empty">No transactions yet. Click "Send" or "Watch Auto-Demo".</p>
           ) : (
             <table className="ledger">
               <thead>
@@ -144,8 +178,8 @@ export default function PaymentDemo() {
                 {ledger.map((r) => (
                   <tr key={r.id} className={r.kind === 'replay' ? 'ledger__replay' : ''}>
                     <td>{r.ref}</td>
-                    <td>{r.kind === 'debit' ? 'Payment to 9034' : 'Retry matched the key'}</td>
-                    <td className="num">{r.kind === 'debit' ? inr(AMOUNT) : '0'}</td>
+                    <td>{r.kind === 'debit' ? 'Payment to 9034' : 'Duplicate retry neutralized'}</td>
+                    <td className="num">{r.kind === 'debit' ? inr(AMOUNT) : '₹0'}</td>
                     <td className="num">{inr(r.balance)}</td>
                   </tr>
                 ))}
@@ -157,27 +191,27 @@ export default function PaymentDemo() {
 
       <div className="pay__foot">
         <div className="pay__actions">
-          <button type="button" className="btn btn--solid" onClick={send}>
+          <button type="button" className="btn btn--solid" onClick={send} disabled={autoSimulating}>
             Send {inr(AMOUNT)}
           </button>
           <button
             type="button"
             className={retryPending ? 'btn btn--mark' : 'btn'}
             onClick={retry}
-            disabled={!request}
+            disabled={!request || autoSimulating}
           >
-            Retry the last request
+            Retry Last Request
           </button>
           <button type="button" className="btn btn--quiet" onClick={reset}>
-            Start over
+            Reset
           </button>
         </div>
         <p className="pay__note" aria-live="polite">
           {note}
         </p>
         <p className="pay__aside">
-          This is a small simulation running in your browser. In my Spring Boot payment project, a database
-          constraint on the request key does the same job.
+          This runs directly in your browser. In my Spring Boot backend project, a unique constraint on PostgreSQL
+          does this exact job at scale.
         </p>
       </div>
     </section>

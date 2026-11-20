@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { PROFILE, STATS, EXPERIENCE, STACK_GROUPS } from './data.js'
+import { PROFILE, STATS, STACK_GROUPS, OPEN_SOURCE } from './data.js'
 import { useTheme } from './hooks/useTheme.js'
 import PaymentDemo from './components/PaymentDemo.jsx'
 import Overview from './components/Overview.jsx'
@@ -9,9 +9,9 @@ import Certifications from './components/Certifications.jsx'
 import Contact from './components/Contact.jsx'
 import CommandPalette from './components/CommandPalette.jsx'
 import AnimatedCounter from './components/AnimatedCounter.jsx'
-import { EntriesHead, StaticEntry } from './components/Entries.jsx'
-import { SearchIcon, SunIcon, MoonIcon, DownloadIcon } from './components/Icons.jsx'
-import MouseTrail from './components/MouseTrail.jsx'
+import AmbientRainCanvas from './components/AmbientRainCanvas.jsx'
+import ExperienceCards from './components/ExperienceCards.jsx'
+import { SearchIcon, SunIcon, MoonIcon, DownloadIcon, ExternalIcon } from './components/Icons.jsx'
 
 const YEAR = new Date().getFullYear()
 const IS_MAC = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform)
@@ -26,9 +26,17 @@ const NAV = [
   ['Contact', 'contact'],
 ]
 
+const LENSES = [
+  { id: 'all', label: '🌐 All Engineering', tag: 'Full Portfolio View' },
+  { id: 'backend', label: '☕ Backend Systems', target: 'work', tag: 'Spring Boot • ACID • APIs' },
+  { id: 'dsa', label: '⚡ DSA & Algorithms', target: 'problem-solving', tag: '1000+ Solved • Hackathon 🥈' },
+  { id: 'ai', label: '🤖 Practical AI', target: 'work', tag: 'LangGraph • RAG • Vision' },
+]
+
 export default function App() {
   const [theme, toggleTheme] = useTheme()
   const [paletteOpen, setPaletteOpen] = useState(false)
+  const [activeLens, setActiveLens] = useState('all')
   const [toast, setToast] = useState('')
   const toastTimer = useRef(0)
 
@@ -49,7 +57,7 @@ export default function App() {
     toastTimer.current = window.setTimeout(() => setToast(''), 2600)
   }
 
-  const go = (id) => document.getElementById(id)?.scrollIntoView()
+  const go = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
   const open = (href) => window.open(href, '_blank', 'noopener')
 
   const copyEmail = () => {
@@ -63,7 +71,19 @@ export default function App() {
       .catch(() => showToast(`Copy blocked. My email is ${PROFILE.email}`))
   }
 
+  const switchLens = (lens) => {
+    setActiveLens(lens.id)
+    showToast(`Switched view to ${lens.label}`)
+    if (lens.target) {
+      setTimeout(() => go(lens.target), 100)
+    }
+  }
+
   const actions = [
+    { id: 'lens-all', group: 'Switch View', label: 'View: All Engineering', run: () => switchLens(LENSES[0]) },
+    { id: 'lens-backend', group: 'Switch View', label: 'View: Backend Systems (Spring Boot/Java)', run: () => switchLens(LENSES[1]) },
+    { id: 'lens-dsa', group: 'Switch View', label: 'View: DSA & Problem Solving (1,000+ Solved)', run: () => switchLens(LENSES[2]) },
+    { id: 'lens-ai', group: 'Switch View', label: 'View: Practical AI & LLM Workflows', run: () => switchLens(LENSES[3]) },
     { id: 'go-top', group: 'Go to', label: 'Top / Intro', run: () => go('top') },
     { id: 'go-overview', group: 'Go to', label: 'Overview & Principles', run: () => go('overview') },
     { id: 'go-dsa', group: 'Go to', label: 'Problem Solving & Hackathons', run: () => go('problem-solving') },
@@ -78,7 +98,7 @@ export default function App() {
     { id: 'o-leetcode', group: 'Open', label: 'LeetCode Profile (1,758)', run: () => open(PROFILE.links.leetcode) },
     { id: 'o-cf', group: 'Open', label: 'Codeforces Profile (Specialist)', run: () => open(PROFILE.links.codeforces) },
     { id: 'o-codolio', group: 'Open', label: 'Codolio Portfolio', run: () => open(PROFILE.links.codolio) },
-    { id: 'o-gfg', group: 'Open', label: 'GeeksforGeeks Profile', run: () => open(PROFILE.links.gfg) },
+    { id: 'o-inchi', group: 'Open', label: 'InChi Pilot Gateway (GitHub)', run: () => open('https://github.com/Abhishekkumar071/InChi-Pilot-Gateway') },
     { id: 'd-email', group: 'Action', label: 'Copy Email Address', run: copyEmail },
     {
       id: 'd-theme',
@@ -87,6 +107,16 @@ export default function App() {
       run: toggleTheme,
     },
   ]
+
+  // Map lens to project category
+  const projectDomainFilter =
+    activeLens === 'backend'
+      ? 'Backend Systems'
+      : activeLens === 'dsa'
+      ? 'All'
+      : activeLens === 'ai'
+      ? 'Practical AI'
+      : 'All'
 
   return (
     <>
@@ -162,6 +192,26 @@ export default function App() {
                 solid enterprise backends, Python for AI/ML, and practicing DSA daily on LeetCode &amp; Codeforces.
               </p>
 
+              {/* 3-Way Lens Switcher */}
+              <div className="lens-box">
+                <span className="lens-box__label">Explore by discipline:</span>
+                <div className="lens-switch" role="tablist" aria-label="Discipline perspective switch">
+                  {LENSES.map((lens) => (
+                    <button
+                      key={lens.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={activeLens === lens.id}
+                      className={`lens-btn ${activeLens === lens.id ? 'lens-btn--active' : ''}`}
+                      onClick={() => switchLens(lens)}
+                    >
+                      <span className="lens-btn__title">{lens.label}</span>
+                      <span className="lens-btn__sub">{lens.tag}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               {/* Animated Stats Strip */}
               <div className="stats-strip">
                 {STATS.map((s) => (
@@ -225,7 +275,7 @@ export default function App() {
               Projects
             </h2>
             <div className="block__body">
-              <Work />
+              <Work domainFilter={projectDomainFilter} />
             </div>
           </section>
 
@@ -235,11 +285,23 @@ export default function App() {
               Experience
             </h2>
             <div className="block__body">
-              <div className="entries">
-                <EntriesHead labels={['When', 'Role & Organization', 'Impact / Tech']} />
-                {EXPERIENCE.map((x) => (
-                  <StaticEntry key={x.title} {...x} />
-                ))}
+              {/* Interactive Expandable Experience Cards */}
+              <ExperienceCards />
+
+              {/* Verified Open-Source Contribution */}
+              <div className="opensource-card">
+                <div className="opensource-card__top">
+                  <span className="opensource-card__tag">Open-Source Contribution</span>
+                  <span className="opensource-card__badge">{OPEN_SOURCE[0].badge}</span>
+                </div>
+                <h3 className="opensource-card__title">{OPEN_SOURCE[0].project} • {OPEN_SOURCE[0].role}</h3>
+                <p className="opensource-card__desc">{OPEN_SOURCE[0].contribution}</p>
+                <p className="opensource-card__details">{OPEN_SOURCE[0].details}</p>
+                <div className="opensource-card__links">
+                  <a className="link link--small" href={PROFILE.links.github} target="_blank" rel="noreferrer">
+                    View GitHub Contributions <ExternalIcon />
+                  </a>
+                </div>
               </div>
             </div>
           </section>
@@ -312,7 +374,9 @@ export default function App() {
       <div className="toast" role="status">
         {toast}
       </div>
-      <MouseTrail />
+
+      {/* Atmospheric Ambient Rain / Light Stream Canvas */}
+      <AmbientRainCanvas />
     </>
   )
 }

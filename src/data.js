@@ -1,14 +1,14 @@
 // Central data store for Abhishek Kumar's personal portfolio.
-// Clear, simple, and human-written engineering content.
+// Aligned with the verified resume: Backend Engineering | Java, Spring Boot & Distributed Systems
 
 export const PROFILE = {
   name: 'Abhishek Kumar',
-  role: 'Software Engineer & Builder',
-  tagline: 'Backend Systems • Data Structures & Algorithms • Practical AI',
+  role: 'Backend Engineering | Java, Spring Boot & Distributed Systems',
+  tagline: 'Java • Spring Boot • Distributed Systems • Python • Django • Problem Solving',
   email: 'aksinghbgp1230@gmail.com',
   phone: '+91-9608035609',
   location: 'Greater Noida, India',
-  status: 'Open to SDE / Backend internships & full-time roles',
+  status: 'Open to Backend / Software Engineering Roles',
   resume: '/Abhishek_Kumar_Resume.pdf',
   links: {
     github: 'https://github.com/Abhishekkumar071',
@@ -36,7 +36,7 @@ export const PILLARS = [
   {
     number: '01',
     title: 'Never lose data or charge twice',
-    tag: 'Backend Engineering',
+    tag: 'Backend & Systems',
     summary:
       'When someone clicks "Pay", a spotty internet connection should not take their money twice. I build backends where requests either finish 100% or roll back cleanly, with built-in safety nets for retries.',
     tech: 'Java, Spring Boot, PostgreSQL, ACID, Django, REST APIs',
@@ -126,25 +126,58 @@ export const DSA_CARDS = [
   },
 ]
 
-// Projects explained in simple, human terms
+// Open Source Contribution (Directly from verified resume)
+export const OPEN_SOURCE = [
+  {
+    project: 'Free LLM API Hub',
+    role: 'Open-Source Contributor',
+    badge: 'Issue #555 Merged / Resolved',
+    contribution:
+      'Contributed to resolving Issue #555 by verifying Cerebras free-trial quotas and model-specific API rate limits against official documentation.',
+    details:
+      'Updated structured provider metadata with verified limits, source references, and verification dates; regenerated documentation and validated changes using automated repository checks.',
+    link: 'https://github.com/Abhishekkumar071',
+  },
+]
+
+// Filtered project list (Removed eCommerce and MoodVision as requested)
 export const PROJECTS = [
+  {
+    id: 'warpurl',
+    category: 'Backend Systems',
+    date: '2026',
+    title: 'WarpURL — High-Performance URL Shortener',
+    sub: 'Turns huge messy links into short URLs with sub-millisecond redirects',
+    tagline: 'High-speed URL shortener with in-memory caching and click analytics',
+    result: 'Sub-Millisecond Redirects',
+    summary:
+      'Link shorteners need to be blazing fast because every millisecond of redirect delay annoys the user. WarpURL uses in-memory caching to redirect users instantly while tracking clicks in the background.',
+    whatIBuilt: [
+      'Developed a URL shortening service using Spring Boot and PostgreSQL, generating unique short codes through MurmurHash3 and Base62 encoding with per-link click analytics.',
+      'Implemented cache-aside caching with Caffeine and asynchronous click tracking to improve redirect efficiency and keep analytics processing off the critical request path.',
+      'Optimized database queries using composite B-tree indexes and pagination; implemented JWT-based authentication, RBAC and Bucket4j rate limiting.',
+      'Containerized the application using Docker and configured GitHub Actions for automated build and test checks.',
+    ],
+    stack: 'Spring Boot, React, PostgreSQL, Caffeine Cache, Docker, Bucket4j',
+    links: [{ label: 'GitHub Repository', href: 'https://github.com/Abhishekkumar071' }],
+  },
   {
     id: 'talentpilot',
     category: 'Practical AI',
     date: '2026',
-    title: 'TalentPilot',
+    title: 'TalentPilot — Agentic AI Recruitment Platform',
     sub: 'Hiring assistant that pauses for HR before taking any big action',
     tagline: 'Multi-agent AI hiring platform with human approval checkpoints',
     result: '4 HR Approval Gates',
     summary:
       'HR teams waste dozens of hours sorting resumes, writing job posts, and scheduling tests. TalentPilot automates the boring work, but it never rejects someone or sends an offer letter without an HR manager clicking "Approve".',
     whatIBuilt: [
-      'Built a multi-step workflow in LangGraph where agents draft job posts, screen resumes, and conduct proctored tests.',
-      'Saved workflow progress into PostgreSQL so a hiring process can wait days for an applicant to reply, survive a server restart, and resume without losing data.',
-      'Resumes are anonymized (names and photos hidden) before scoring to prevent unconscious bias.',
-      'Offer letters are strictly capped to the approved salary range, so the AI never promises numbers the company cannot pay.',
+      'Developed an AI-powered recruitment platform using Python, FastAPI and React to streamline candidate screening, assessments and interview workflows.',
+      'Built agentic workflows using LangGraph and LangChain, integrating RAG and LLM APIs to support context-aware information retrieval and recruitment tasks.',
+      'Integrated candidate assessment and interview automation with MediaPipe-based proctoring to support structured candidate evaluation.',
+      'Saved workflow progress into PostgreSQL checkpoints so a hiring process can wait days for an applicant and survive server restarts.',
     ],
-    stack: 'Python, FastAPI, LangGraph, LangChain, React, MediaPipe, PostgreSQL',
+    stack: 'Python, FastAPI, React, LangGraph, LangChain, RAG, MediaPipe, PostgreSQL',
     links: [{ label: 'View Code on GitHub', href: 'https://github.com/Abhishekkumar071/TalentPilot' }],
     flow: true,
   },
@@ -175,64 +208,25 @@ export const PROJECTS = [
     imageAlt: 'Login screen and transaction panel of the bank application',
   },
   {
-    id: 'warpurl',
-    category: 'Backend Systems',
-    date: '2026',
-    title: 'WarpURL — Super Fast Link Shortener',
-    sub: 'Turns huge messy links into short URLs with sub-millisecond redirects',
-    tagline: 'High-speed URL shortener with in-memory caching and click analytics',
-    result: 'Sub-Millisecond Redirects',
-    summary:
-      'Link shorteners need to be blazing fast because every millisecond of redirect delay annoys the user. WarpURL uses in-memory caching to redirect users instantly while tracking clicks in the background.',
-    whatIBuilt: [
-      'Created short, collision-free codes using MurmurHash3 and Base62 encoding (like bit.ly).',
-      'Used Caffeine in-memory cache so popular links redirect instantly without querying the database disk every time.',
-      'Tracked clicks, browsers, and timestamps asynchronously so analytics logging never slows down the visitor redirect.',
-      'Added token-bucket rate limiting (Bucket4j) so nobody can spam or crash the server with automated bots.',
-    ],
-    stack: 'Java, Spring Boot, React, PostgreSQL, Caffeine Cache, Docker, Bucket4j',
-    links: [{ label: 'GitHub Profile', href: 'https://github.com/Abhishekkumar071' }],
-  },
-  {
     id: 'insurai',
     category: 'Full-Stack & Cloud',
     date: 'Oct–Dec 2025',
-    title: 'InsurAI — Insurance Platform',
+    title: 'InsurAI — Intelligent Insurance Platform',
     sub: 'Built during Infosys Springboard internship with 50+ REST APIs',
     tagline: 'End-to-end insurance portal with policy recommendations and Gemini chatbot',
     result: '50+ REST APIs on AWS',
     summary:
       'Buying insurance usually involves stacks of paperwork and slow agents. InsurAI lets users explore policies, get AI-based recommendations, and submit claims online in minutes.',
     whatIBuilt: [
-      'Built 50+ REST APIs with Spring Boot and MySQL, secured with role-based access control for customers and admins.',
-      'Added RabbitMQ message queues so notifications and emails send in the background without freezing the webpage.',
-      'Created a small Python recommendation service that matches customer age and budget to the best insurance plan.',
-      'Integrated a Gemini AI assistant to explain complicated insurance terms in simple, everyday language.',
-      'Deployed on AWS (EC2 for backend, S3 for frontend, RDS for database) with JUnit 5 unit tests.',
+      'Built a full-stack insurance platform using Java, Spring Boot, React and MySQL, developing 50+ REST APIs for policy discovery, applications and administrative workflows.',
+      'Implemented JWT-based authentication, role-based access control, server-side pagination and rate limiting to secure and manage application endpoints.',
+      'Integrated RabbitMQ-based asynchronous notifications to process policy application events without blocking the main request flow.',
+      'Connected a FastAPI recommendation service, Gemini chatbot and Razorpay payment integration; tested application components using JUnit, Mockito and Postman and deployed on AWS EC2, S3 and RDS.',
     ],
-    stack: 'Java, Spring Boot, MySQL, React, RabbitMQ, FastAPI, Gemini API, AWS',
+    stack: 'Java, Spring Boot, MySQL, React, RabbitMQ, FastAPI, Gemini API, AWS (EC2, S3, RDS)',
     links: [{ label: 'View Code on GitHub', href: 'https://github.com/Abhishekkumar071/InsurAI' }],
     image: '/InsurAI.png',
     imageAlt: 'InsurAI dashboard showing policy search and personalized recommendations',
-  },
-  {
-    id: 'ecommerce',
-    category: 'Backend Systems',
-    date: '2026',
-    title: 'Full-Stack eCommerce Platform',
-    sub: 'Complete online store with real Stripe payment checkout and role access',
-    tagline: 'Spring Boot eCommerce architecture with customer cart and admin dashboard',
-    result: 'Stripe & JWT Security',
-    summary:
-      'A complete online shopping store built to master real-world Spring Boot enterprise architecture. Handles product catalogs, customer shopping carts, Stripe card checkout, and seller dashboards.',
-    whatIBuilt: [
-      'Clean layered Spring Boot architecture (Controller → Service → Repository → Database).',
-      'Real Stripe payment gateway integration with secure webhook listeners to mark orders as paid.',
-      'Stateless security using JSON Web Tokens (JWT) so users stay safely logged in.',
-      'Admin and seller panels to add products, adjust inventory counts, and view incoming orders.',
-    ],
-    stack: 'Java, Spring Boot, Spring Security, JWT, Stripe API, Hibernate, MySQL, React',
-    links: [{ label: 'GitHub Repositories', href: 'https://github.com/Abhishekkumar071' }],
   },
   {
     id: 'chatlens',
@@ -276,26 +270,6 @@ export const PROJECTS = [
     links: [{ label: 'View Code on GitHub', href: 'https://github.com/Abhishekkumar071/document-qa-engine' }],
     image: '/doc_qa.png',
     imageAlt: 'Document QA interface with PDF uploaded and grounded question answer',
-  },
-  {
-    id: 'moodvision',
-    category: 'Computer Vision',
-    date: '2023',
-    title: 'MoodVision — Live Emotion Classifier',
-    sub: 'Detects facial emotions in real time through your webcam',
-    tagline: 'Deep learning computer vision model running at 30+ frames per second',
-    result: '63% on FER2013',
-    summary:
-      'A deep learning project that spots faces through a live webcam and predicts whether the person is happy, sad, angry, surprised, or neutral.',
-    whatIBuilt: [
-      'Trained a Convolutional Neural Network (CNN) on 32,300+ facial images across 7 emotions, reaching 63% test accuracy.',
-      'Used OpenCV to instantly draw bounding boxes around faces in the camera frame.',
-      'Streamlined frame processing so predictions run smoothly at 30+ FPS on regular laptop processors without needing an expensive GPU.',
-    ],
-    stack: 'Python, TensorFlow, Keras, CNNs, OpenCV',
-    links: [{ label: 'View Code on GitHub', href: 'https://github.com/Abhishekkumar071/MoodVision' }],
-    image: '/moodVission.png',
-    imageAlt: 'MoodVision webcam interface with green emotion detection boxes on faces',
   },
 ]
 
@@ -352,85 +326,101 @@ export const FLOW = [
   },
 ]
 
-// Real work experience written like a human
+// Real work experience — Strictly the two professional experiences requested by the user
 export const EXPERIENCE = [
   {
+    id: 'inchi',
     date: 'Sep 2026 – Present',
-    title: 'Backend & Access Control Engineer',
-    sub: 'InChi Pilot Gateway • Singapore / Remote',
-    body: 'Building the core backend for a B2B platform connecting Indian suppliers with international buyers. Writing Python and Django REST APIs for supplier registries and product catalogs, with secure session logins, role-based permissions, and Docker development environments.',
-    result: 'Django 5.2 & RBAC',
+    isCurrent: true,
+    title: 'Application Backend & Access-Control Engineer',
+    company: 'InChi Pilot Gateway',
+    location: 'Singapore (Remote / Hybrid)',
+    sub: 'InChi Pilot Gateway, Singapore',
+    tagline: 'Cross-border B2B commerce gateway connecting Indian suppliers with Chinese buyers',
+    body: 'Developed Supplier Registry and Product Catalogue modules using Python and Django REST Framework for a B2B platform connecting Indian suppliers with Chinese buyers. Implemented secure REST APIs with session-based authentication, role-based access control (RBAC) and object-level permissions across application resources. Added request validation, standardized error handling and automated tests to improve API reliability and maintainability. Collaborated through Docker-based development, Git workflows, API documentation and Agile development practices.',
+    summary:
+      'Engineered core backend modules and fine-grained access control architecture for an international B2B platform, ensuring multi-tenant data isolation and secure trade communications between Indian suppliers and Chinese buyers.',
+    responsibilities: [
+      'Architected Supplier Registry and Product Catalogue modules using Python and Django REST Framework for high-throughput supplier onboarding and dynamic inventory management.',
+      'Designed and enforced session-based authentication and granular Role-Based Access Control (RBAC) with custom object-level permissions, preventing unauthorized access across cross-border business accounts.',
+      'Implemented robust request validation, custom serializer validations, and centralized HTTP error-handling pipelines to elevate API resilience.',
+      'Wrote comprehensive unit and API integration tests, containerized development with Docker, and collaborated via Git and OpenAPI documentation following Agile sprints.',
+    ],
+    stackList: ['Python', 'Django', 'Django REST Framework', 'PostgreSQL', 'RBAC', 'Docker', 'REST APIs', 'Git', 'Agile'],
+    result: 'Python, Django & RBAC',
+    href: 'https://github.com/Abhishekkumar071/InChi-Pilot-Gateway',
+    linkText: 'View InChi Gateway Repository',
+    links: [
+      {
+        label: 'View InChi Gateway Repository',
+        href: 'https://github.com/Abhishekkumar071/InChi-Pilot-Gateway',
+      },
+    ],
   },
   {
+    id: 'insurai',
     date: 'Oct–Dec 2025',
-    title: 'Java Full Stack Developer Intern',
-    sub: 'Infosys Springboard Virtual Internship 6.0',
-    body: 'Selected in the top ~2-5% nationwide cohort to build InsurAI from scratch. Created 50+ REST APIs in Spring Boot, added RabbitMQ message queues for background notifications, built a Gemini chatbot for policy questions, and deployed everything on AWS EC2, S3, and RDS.',
-    result: '50+ APIs on AWS',
-  },
-  {
-    date: 'Aug–Oct 2025',
-    title: 'Data Strategy Intern',
-    sub: 'The Moronss • Technical Department',
-    body: 'Worked on data workflows, cleaning operational datasets, and structuring technical data pipelines for team decision-making.',
-    result: 'Data Pipelines',
-  },
-  {
-    date: '2023–2027',
-    title: 'B.Tech in Computer Science & Engineering (AI & ML)',
-    sub: 'Noida Institute of Engineering & Technology (NIET)',
-    body: 'Studying core computer science, algorithms, operating systems, databases, and machine learning. Maintaining an 8.9 CGPA while building real projects and competing in coding contests.',
-    result: 'CGPA: 8.9 / 10',
-  },
-  {
-    date: 'Leadership',
-    title: 'Membership Chair — IEEE Computer Society',
-    sub: 'NIET IEEE Student Branch Chapter',
-    body: 'Organized hands-on coding workshops, hackathons, and placement preparation series for fellow students. Passionate about helping other engineers get better at DSA and building.',
-    result: 'Student Leader',
-  },
-  {
-    date: 'Selected',
-    title: 'NEST For Coders — Top 29 Coders',
-    sub: 'NIET Competitive Coding Group',
-    body: 'Selected as one of the 29 strongest coders at the college for advanced algorithmic problem-solving sessions and inter-college hackathons.',
-    result: 'Top 29 Selected',
+    isCurrent: false,
+    title: 'Full Stack Developer Intern — InsurAI',
+    company: 'Infosys Springboard',
+    location: '3-Month Internship',
+    sub: 'Infosys Springboard • 3-Month Internship',
+    tagline: 'Enterprise insurance platform with 50+ REST APIs, Gemini chatbot, and AWS deployment',
+    body: 'Built a full-stack insurance platform using Java, Spring Boot, React and MySQL, developing 50+ REST APIs for policy discovery, applications and administrative workflows. Implemented JWT-based authentication, role-based access control, server-side pagination and rate limiting to secure and manage application endpoints. Integrated RabbitMQ-based asynchronous notifications to process policy application events without blocking the main request flow. Connected a FastAPI recommendation service, Gemini chatbot and Razorpay payment integration; tested application components using JUnit, Mockito and Postman and deployed on AWS EC2, S3 and RDS.',
+    summary:
+      'Built and deployed a production-grade insurance system from scratch, creating over 50 REST APIs in Spring Boot, decoupling event-driven email notifications with RabbitMQ, and hosting the full infrastructure on AWS.',
+    responsibilities: [
+      'Engineered 50+ RESTful APIs in Java & Spring Boot managing policy exploration, user applications, underwriting checks, and admin approvals with MySQL.',
+      'Secured endpoints using Spring Security and stateless JWT authentication, enforcing Role-Based Access Control (Admin, Agent, Customer) and Bucket4j rate limiting.',
+      'Decoupled asynchronous notification pipelines using RabbitMQ message queues to send policy updates without adding latency to customer checkout calls.',
+      'Integrated an intelligent FastAPI recommendation engine and Gemini-powered assistance bot; deployed production services on AWS (EC2 web server, RDS database, and S3 file storage).',
+    ],
+    stackList: ['Java', 'Spring Boot', 'Spring Security', 'MySQL', 'React', 'RabbitMQ', 'FastAPI', 'Gemini API', 'AWS (EC2, S3, RDS)', 'JUnit'],
+    result: '50+ REST APIs on AWS',
+    href: 'https://github.com/Abhishekkumar071/InsurAI',
+    linkText: 'View InsurAI Repository',
+    links: [
+      {
+        label: 'View InsurAI Repository',
+        href: 'https://github.com/Abhishekkumar071/InsurAI',
+      },
+    ],
   },
 ]
 
-// Tech stack grouped in a logical, readable way
+// Tech stack directly from verified resume
 export const STACK_GROUPS = [
   {
-    category: 'Languages I write daily',
-    items: ['Java', 'Python', 'SQL', 'C', 'JavaScript (ES6+)'],
+    category: 'Languages & Frontend',
+    items: ['Java', 'Python', 'C', 'SQL', 'JavaScript', 'React.js'],
   },
   {
-    category: 'Backend & APIs',
-    items: ['Spring Boot', 'Spring Security', 'Hibernate / JPA', 'Django & DRF', 'FastAPI', 'REST APIs', 'JWT & RBAC'],
+    category: 'Backend Engineering',
+    items: ['Spring Boot', 'Spring Security', 'Django', 'Django REST Framework', 'FastAPI', 'REST APIs', 'JWT', 'RBAC'],
   },
   {
-    category: 'Data Structures & CS Foundations',
-    items: ['Data Structures & Algorithms', 'System Design Basics', 'ACID Transactions', 'DBMS', 'Operating Systems', 'Computer Networks'],
-  },
-  {
-    category: 'AI & Machine Learning',
-    items: ['LangGraph', 'LangChain', 'RAG (ChromaDB)', 'Gemini / Groq / OpenAI APIs', 'Scikit-learn', 'TensorFlow', 'OpenCV', 'MediaPipe'],
+    category: 'Core Computer Science',
+    items: ['Data Structures & Algorithms', 'OOP', 'Operating Systems', 'DBMS', 'Computer Networks', 'SDLC'],
   },
   {
     category: 'Databases & Storage',
-    items: ['PostgreSQL', 'MySQL', 'MongoDB', 'Caffeine In-Memory Cache', 'Redis'],
+    items: ['MySQL', 'PostgreSQL', 'MongoDB', 'Database Design', 'Indexing', 'ACID Transactions'],
   },
   {
-    category: 'Cloud, DevOps & Tools',
-    items: ['AWS (EC2, S3, RDS)', 'Docker', 'GitHub Actions (CI/CD)', 'Git', 'Linux / Bash', 'Postman'],
+    category: 'Systems & Infrastructure',
+    items: ['RabbitMQ', 'Caffeine Cache', 'Rate Limiting (Bucket4j)', 'Asynchronous Processing'],
   },
   {
-    category: 'Testing & Code Quality',
-    items: ['JUnit 5', 'Mockito', 'Pytest', 'Postman API Testing', 'Agile / Scrum'],
+    category: 'Cloud, DevOps & Testing',
+    items: ['AWS (EC2, S3, RDS)', 'Docker', 'Git', 'GitHub Actions', 'CI/CD', 'Bash', 'JUnit', 'Mockito', 'Pytest', 'Postman'],
+  },
+  {
+    category: 'AI & Agentic Workflows',
+    items: ['LangGraph', 'LangChain', 'RAG', 'ChromaDB', 'MediaPipe', 'Gemini API'],
   },
 ]
 
-// Real certifications and honors
+// Real certifications and honors from verified resume
 export const CERTIFICATIONS = [
   {
     title: '2nd Place 🥈 — Code Storm Hackathon (DSA)',
@@ -444,52 +434,43 @@ export const CERTIFICATIONS = [
   {
     title: 'CCNA: Introduction to Networks',
     issuer: 'Cisco Networking Academy',
-    year: '2026',
+    year: 'June 2026',
     detail:
       'Verified understanding of IP addressing, subnetting, Ethernet switching, routing protocols, and transport layer reliability.',
     badge: 'Cisco Verified',
     file: '/certification/CCNA-_Introduction_to_Networks_certificate.pdf',
   },
   {
-    title: 'Infosys Springboard Virtual Internship Certificate',
+    title: 'Database Management Systems',
     issuer: 'Infosys Springboard',
     year: '2025',
+    detail:
+      'Relational database design, SQL querying, transaction management, normalization, and relational integrity.',
+    badge: 'Infosys Verified',
+  },
+  {
+    title: 'Infosys Springboard Virtual Internship Certificate',
+    issuer: 'Infosys Springboard',
+    year: 'Dec 2025',
     detail:
       'Completed the intensive Java Full Stack Development internship, building and deploying the InsurAI enterprise platform on AWS.',
     badge: 'Infosys Official',
     file: '/certification/Infosys_Internship_Certificate.pdf',
   },
   {
-    title: 'Java Spring Boot Full Stack: eCommerce Masterclass',
-    issuer: 'EmbarkX / Udemy',
-    year: '2026',
+    title: 'Membership Chair — IEEE CS Student Branch',
+    issuer: 'NIET IEEE Student Branch Chapter',
+    year: 'Campus',
     detail:
-      'Built a complete enterprise eCommerce backend with Spring Boot, Spring Security, JWT, Stripe payments, and AWS deployment.',
-    badge: 'Udemy Certified',
+      'Organized technical events, hackathons, and coding workshops for fellow students. Led peer engagement in algorithms and software engineering.',
+    badge: 'Leadership',
   },
   {
-    title: 'Amazon Web Services (AWS) - Zero to Hero',
-    issuer: 'Udemy',
-    year: '2026',
+    title: 'NEST For Coders — Top 29 Coders Selection',
+    issuer: 'NIET Coding Hub',
+    year: 'Campus',
     detail:
-      'Hands-on cloud architecture covering Amazon EC2, S3, RDS database servers, IAM security policies, and CloudWatch monitoring.',
-    badge: 'AWS Cloud',
-  },
-  {
-    title: 'Career Essentials in Generative AI',
-    issuer: 'Microsoft & LinkedIn',
-    year: '2026',
-    detail:
-      'Foundational generative AI architecture, large language models, prompt workflows, and ethical AI implementation.',
-    badge: 'Microsoft Certified',
-    file: '/certification/microsoft and linkdin.jpg',
-  },
-  {
-    title: 'Infosys Springboard Advanced Track Certificates',
-    issuer: 'Infosys Springboard',
-    year: '2025–2026',
-    detail:
-      'Certified in Machine Learning & AI, Natural Language Processing using Python, Deep Learning for Developers, and DBMS.',
-    badge: 'Infosys Tracks',
+      'Selected among the top 29 programmers across the institute to mentor peers, review code, and represent the college in hackathons.',
+    badge: 'Top 29 Selected',
   },
 ]

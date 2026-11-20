@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 
 const ARRAY_SIZE = 100
 const PRESETS = [19, 42, 73, 91]
@@ -6,13 +6,16 @@ const PRESETS = [19, 42, 73, 91]
 export default function AlgorithmVisualizer() {
   const [target, setTarget] = useState(73)
   const [running, setRunning] = useState(false)
+  const [autoPlay, setAutoPlay] = useState(true)
   const [linearSteps, setLinearSteps] = useState(0)
   const [binarySteps, setBinarySteps] = useState(0)
   const [binaryLog, setBinaryLog] = useState([])
   const [completed, setCompleted] = useState(false)
   const timerRef = useRef(null)
+  const autoPlayTimerRef = useRef(null)
+  const presetIndexRef = useRef(0)
 
-  const runRace = (searchVal = target) => {
+  const runRace = useCallback((searchVal = target) => {
     if (running) return
     const num = Math.min(Math.max(1, parseInt(searchVal, 10) || 1), ARRAY_SIZE)
     setTarget(num)
@@ -34,7 +37,6 @@ export default function AlgorithmVisualizer() {
       else high = mid - 1
     }
 
-    // Animate race
     let currentLinear = 0
     let currentBinaryIndex = 0
 
@@ -44,9 +46,8 @@ export default function AlgorithmVisualizer() {
       let doneLinear = false
       let doneBinary = false
 
-      // Linear step
       if (currentLinear < num) {
-        currentLinear += Math.max(1, Math.floor(num / 15))
+        currentLinear += Math.max(1, Math.floor(num / 14))
         if (currentLinear >= num) {
           currentLinear = num
           doneLinear = true
@@ -56,7 +57,6 @@ export default function AlgorithmVisualizer() {
         doneLinear = true
       }
 
-      // Binary step
       if (currentBinaryIndex < bSteps.length) {
         currentBinaryIndex += 1
         setBinarySteps(currentBinaryIndex)
@@ -70,8 +70,34 @@ export default function AlgorithmVisualizer() {
         setRunning(false)
         setCompleted(true)
       }
-    }, 90)
-  }
+    }, 80)
+  }, [running, target])
+
+  // Automatic triggering if autoPlay is active
+  useEffect(() => {
+    if (!autoPlay) {
+      if (autoPlayTimerRef.current) clearTimeout(autoPlayTimerRef.current)
+      return
+    }
+
+    const triggerNext = () => {
+      const nextTarget = PRESETS[presetIndexRef.current % PRESETS.length]
+      presetIndexRef.current += 1
+      runRace(nextTarget)
+    }
+
+    // Initial trigger
+    const initialDelay = setTimeout(triggerNext, 1200)
+
+    // Recurring auto-demo every 6 seconds
+    const interval = setInterval(triggerNext, 6500)
+
+    return () => {
+      clearTimeout(initialDelay)
+      clearInterval(interval)
+      if (timerRef.current) clearInterval(timerRef.current)
+    }
+  }, [autoPlay, runRace])
 
   const speedup = binarySteps > 0 ? (linearSteps / binarySteps).toFixed(1) : 0
 
@@ -79,10 +105,20 @@ export default function AlgorithmVisualizer() {
     <div className="algo-box">
       <div className="algo-box__header">
         <div>
-          <span className="algo-box__tag">Interactive Algorithm Race</span>
+          <div className="algo-box__top-bar">
+            <span className="algo-box__tag">⚡ Interactive Algorithm Race</span>
+            <button
+              type="button"
+              className={`auto-toggle ${autoPlay ? 'auto-toggle--active' : ''}`}
+              onClick={() => setAutoPlay(!autoPlay)}
+            >
+              <span className="auto-toggle__dot" />
+              <span>{autoPlay ? 'Auto-Running Demo' : 'Auto-Play Paused'}</span>
+            </button>
+          </div>
           <h3 className="algo-box__title">Linear Search vs Binary Search</h3>
           <p className="algo-box__desc">
-            See how algorithmic choices impact speed. Searching for a number in a sorted list of 1 to 100:
+            See how algorithmic choices impact performance. Searching for a number in a sorted array of 1 to 100:
           </p>
         </div>
 
@@ -95,7 +131,10 @@ export default function AlgorithmVisualizer() {
               min="1"
               max="100"
               value={target}
-              onChange={(e) => setTarget(e.target.value)}
+              onChange={(e) => {
+                setAutoPlay(false)
+                setTarget(e.target.value)
+              }}
               disabled={running}
               className="algo-input"
             />
@@ -106,8 +145,9 @@ export default function AlgorithmVisualizer() {
               <button
                 key={p}
                 type="button"
-                className="btn-preset"
+                className={`btn-preset ${target === p ? 'btn-preset--active' : ''}`}
                 onClick={() => {
+                  setAutoPlay(false)
                   setTarget(p)
                   runRace(p)
                 }}
@@ -121,10 +161,13 @@ export default function AlgorithmVisualizer() {
           <button
             type="button"
             className="btn btn--solid btn--run"
-            onClick={() => runRace(target)}
+            onClick={() => {
+              setAutoPlay(false)
+              runRace(target)
+            }}
             disabled={running}
           >
-            {running ? 'Running Search…' : 'Run Search Race ⚡'}
+            {running ? 'Racing…' : 'Run Search Race ⚡'}
           </button>
         </div>
       </div>
@@ -136,7 +179,7 @@ export default function AlgorithmVisualizer() {
             <span className="algo-name">Linear Search</span>
             <span className="algo-complexity">O(N) Complexity</span>
           </div>
-          <p className="algo-explain">Checks every single item one by one from index 1.</p>
+          <p className="algo-explain">Scans every single number one by one from the start.</p>
 
           <div className="algo-meter">
             <div className="algo-meter__bar" style={{ width: `${(linearSteps / ARRAY_SIZE) * 100}%` }} />
@@ -146,7 +189,7 @@ export default function AlgorithmVisualizer() {
             <span className="algo-stat__label">Comparisons Made:</span>
             <span className="algo-stat__num algo-stat__num--linear">{linearSteps}</span>
           </div>
-          <p className="algo-footnote">Checks: 1, 2, 3... up to {linearSteps}</p>
+          <p className="algo-footnote">Checked: 1, 2, 3... up to {linearSteps}</p>
         </div>
 
         {/* Binary Search Card */}
@@ -155,7 +198,7 @@ export default function AlgorithmVisualizer() {
             <span className="algo-name">Binary Search</span>
             <span className="algo-complexity algo-complexity--good">O(log N) Complexity</span>
           </div>
-          <p className="algo-explain">Divides the search range in half on every single check.</p>
+          <p className="algo-explain">Divides the remaining list in half on every single check.</p>
 
           <div className="algo-meter">
             <div
@@ -172,7 +215,7 @@ export default function AlgorithmVisualizer() {
           <div className="algo-steps-log">
             {binaryLog.map((step, idx) => (
               <span key={idx} className="algo-step-chip">
-                Step {idx + 1}: check {step.mid}
+                Step {idx + 1}: mid={step.mid}
               </span>
             ))}
           </div>
@@ -183,12 +226,12 @@ export default function AlgorithmVisualizer() {
         <div className="algo-summary">
           <span className="algo-summary__badge">Result: Binary Search was {speedup}x Faster</span>
           <p>
-            Binary Search found <strong>{target}</strong> in just <strong>{binarySteps} steps</strong>, while Linear
-            Search required <strong>{linearSteps} steps</strong>.
+            Binary Search found <strong>{target}</strong> in only <strong>{binarySteps} steps</strong>, while Linear
+            Search checked <strong>{linearSteps} items</strong>.
             <br />
             <em>
-              "This is why I compete in DSA hackathons: picking the right algorithm turns a sluggish system into an
-              instant one."
+              "This is why I compete in DSA hackathons: picking the right algorithm turns minutes of waiting into
+              instant results."
             </em>
           </p>
         </div>
