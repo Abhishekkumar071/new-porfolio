@@ -1,5 +1,4 @@
 import { DSA_CARDS, PROFILE } from '../data.js'
-import AlgorithmVisualizer from './AlgorithmVisualizer.jsx'
 import { ExternalIcon } from './Icons.jsx'
 
 export default function ProblemSolving() {
@@ -30,9 +29,6 @@ export default function ProblemSolving() {
           </div>
         </div>
       </div>
-
-      {/* Interactive Visualizer Playground */}
-      <AlgorithmVisualizer />
 
       {/* Verified Contest & Profile Cards */}
       <div className="dsa-stats-grid">
