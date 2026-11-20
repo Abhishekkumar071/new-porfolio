@@ -4,6 +4,8 @@ import PipelineExplorer from './PipelineExplorer.jsx'
 import { EntriesHead } from './Entries.jsx'
 import { ExternalIcon } from './Icons.jsx'
 
+const CATEGORIES = ['All', 'Backend Systems', 'Agentic AI', 'Full-Stack & Cloud', 'AI & Data Engineering']
+
 function Project({ p, open, onToggle }) {
   const panelId = `detail-${p.id}`
   const hasMedia = Boolean(p.image)
@@ -17,7 +19,10 @@ function Project({ p, open, onToggle }) {
         aria-controls={panelId}
         onClick={onToggle}
       >
-        <span className="entry__date c-date">{p.date}</span>
+        <span className="entry__date c-date">
+          <span className="entry__year">{p.date}</span>
+          {p.category ? <span className="entry__cat-tag">{p.category}</span> : null}
+        </span>
         <span className="c-title">
           <span className="entry__title">{p.title}</span>
           <span className="entry__sub">{p.sub}</span>
@@ -26,7 +31,14 @@ function Project({ p, open, onToggle }) {
         <span className="entry__toggle c-toggle" aria-hidden="true" />
       </button>
 
-      <div className="detail" data-open={open} id={panelId} role="region" aria-label={`${p.title} details`} inert={!open}>
+      <div
+        className="detail"
+        data-open={open}
+        id={panelId}
+        role="region"
+        aria-label={`${p.title} details`}
+        inert={!open ? '' : undefined}
+      >
         <div className="detail__clip">
           <div className={hasMedia ? 'detail__body detail__body--media' : 'detail__body'}>
             <div className="detail__text">
@@ -39,7 +51,7 @@ function Project({ p, open, onToggle }) {
               <p className="detail__stack">
                 <span>Built with</span> {p.stack}
               </p>
-              {p.links.length > 0 ? (
+              {p.links && p.links.length > 0 ? (
                 <p className="detail__links">
                   {p.links.map((l) => (
                     <a key={l.href} className="link" href={l.href} target="_blank" rel="noreferrer">
@@ -68,13 +80,41 @@ function Project({ p, open, onToggle }) {
 
 export default function Work() {
   const [openId, setOpenId] = useState('talentpilot')
+  const [activeCat, setActiveCat] = useState('All')
+
+  const filtered =
+    activeCat === 'All'
+      ? PROJECTS
+      : PROJECTS.filter((p) => p.category === activeCat)
 
   return (
-    <div className="entries">
-      <EntriesHead labels={['Date', 'Project', 'Result']} />
-      {PROJECTS.map((p) => (
-        <Project key={p.id} p={p} open={openId === p.id} onToggle={() => setOpenId(openId === p.id ? null : p.id)} />
-      ))}
+    <div>
+      <div className="filter-bar" role="tablist" aria-label="Project domain filter">
+        {CATEGORIES.map((cat) => (
+          <button
+            key={cat}
+            type="button"
+            role="tab"
+            aria-selected={activeCat === cat}
+            className={`filter-btn ${activeCat === cat ? 'filter-btn--active' : ''}`}
+            onClick={() => setActiveCat(cat)}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      <div className="entries">
+        <EntriesHead labels={['Date / Domain', 'Project & Architecture', 'Key Guarantee']} />
+        {filtered.map((p) => (
+          <Project
+            key={p.id}
+            p={p}
+            open={openId === p.id}
+            onToggle={() => setOpenId(openId === p.id ? null : p.id)}
+          />
+        ))}
+      </div>
     </div>
   )
 }

@@ -62,11 +62,12 @@ export default function PaymentDemo() {
   }
 
   // Everything below is derived from state, so it stays in sync.
-  let balance = START_BALANCE
-  const ledger = rows.map((r) => {
-    if (r.kind === 'debit') balance -= AMOUNT
-    return { ...r, balance }
+  const ledger = rows.map((r, i) => {
+    const debitsUpToHere = rows.slice(0, i + 1).filter((x) => x.kind === 'debit').length
+    return { ...r, balance: START_BALANCE - debitsUpToHere * AMOUNT }
   })
+  const totalDebits = rows.filter((r) => r.kind === 'debit').length
+  const balance = START_BALANCE - totalDebits * AMOUNT
   const debitKeys = rows.filter((r) => r.kind === 'debit').map((r) => r.key)
   const chargedTwice = debitKeys.length !== new Set(debitKeys).size
   const blocked = rows.some((r) => r.kind === 'replay')

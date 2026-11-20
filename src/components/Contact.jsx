@@ -63,11 +63,19 @@ export default function Contact() {
             {PROFILE.email}
           </a>
         </li>
+        {PROFILE.phone ? (
+          <li>
+            <a className="link" href={`tel:${PROFILE.phone}`}>
+              {PROFILE.phone}
+            </a>
+          </li>
+        ) : null}
         {[
           ['GitHub', PROFILE.links.github],
           ['LinkedIn', PROFILE.links.linkedin],
           ['LeetCode', PROFILE.links.leetcode],
           ['Codeforces', PROFILE.links.codeforces],
+          ['Codolio Portfolio', PROFILE.links.codolio],
           ['GeeksforGeeks', PROFILE.links.gfg],
         ].map(([label, href]) => (
           <li key={label}>

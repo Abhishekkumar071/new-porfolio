@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { PROFILE, RATINGS, EXPERIENCE, STACK } from './data.js'
+import { PROFILE, EXPERIENCE, STACK } from './data.js'
 import { useTheme } from './hooks/useTheme.js'
 import PaymentDemo from './components/PaymentDemo.jsx'
+import Overview from './components/Overview.jsx'
+import ProblemSolving from './components/ProblemSolving.jsx'
 import Work from './components/Work.jsx'
+import Certifications from './components/Certifications.jsx'
 import Contact from './components/Contact.jsx'
 import CommandPalette from './components/CommandPalette.jsx'
 import { EntriesHead, StaticEntry } from './components/Entries.jsx'
@@ -13,9 +16,12 @@ const YEAR = new Date().getFullYear()
 const IS_MAC = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform)
 
 const NAV = [
-  ['Work', 'work'],
+  ['Overview', 'overview'],
+  ['Problem Solving', 'problem-solving'],
+  ['Systems & AI', 'work'],
   ['Experience', 'experience'],
   ['Stack', 'stack'],
+  ['Certifications', 'certifications'],
   ['Contact', 'contact'],
 ]
 
@@ -52,23 +58,27 @@ export default function App() {
     }
     navigator.clipboard
       .writeText(PROFILE.email)
-      .then(() => showToast('Email copied'))
+      .then(() => showToast('Email copied to clipboard'))
       .catch(() => showToast(`Copy blocked. My email is ${PROFILE.email}`))
   }
 
   const actions = [
-    { id: 'go-demo', group: 'Go to', label: 'Payment demo', run: () => go('top') },
-    { id: 'go-ratings', group: 'Go to', label: 'Ratings', run: () => go('ratings') },
-    { id: 'go-work', group: 'Go to', label: 'Work', run: () => go('work') },
-    { id: 'go-exp', group: 'Go to', label: 'Experience', run: () => go('experience') },
-    { id: 'go-stack', group: 'Go to', label: 'Stack', run: () => go('stack') },
+    { id: 'go-top', group: 'Go to', label: 'Top / Hero', run: () => go('top') },
+    { id: 'go-overview', group: 'Go to', label: 'Engineering Overview', run: () => go('overview') },
+    { id: 'go-dsa', group: 'Go to', label: 'Problem Solving (DSA)', run: () => go('problem-solving') },
+    { id: 'go-work', group: 'Go to', label: 'Systems & AI Projects', run: () => go('work') },
+    { id: 'go-exp', group: 'Go to', label: 'Professional Experience', run: () => go('experience') },
+    { id: 'go-stack', group: 'Go to', label: 'Technical Stack', run: () => go('stack') },
+    { id: 'go-certs', group: 'Go to', label: 'Certifications & Honors', run: () => go('certifications') },
     { id: 'go-contact', group: 'Go to', label: 'Contact', run: () => go('contact') },
-    { id: 'o-resume', group: 'Open', label: 'Download resume', run: () => open(PROFILE.resume) },
-    { id: 'o-github', group: 'Open', label: 'GitHub profile', run: () => open(PROFILE.links.github) },
-    { id: 'o-linkedin', group: 'Open', label: 'LinkedIn profile', run: () => open(PROFILE.links.linkedin) },
-    { id: 'o-leetcode', group: 'Open', label: 'LeetCode profile', run: () => open(PROFILE.links.leetcode) },
-    { id: 'o-cf', group: 'Open', label: 'Codeforces profile', run: () => open(PROFILE.links.codeforces) },
-    { id: 'd-email', group: 'Do', label: 'Copy my email address', run: copyEmail },
+    { id: 'o-resume', group: 'Open', label: 'Download Resume (PDF)', run: () => open(PROFILE.resume) },
+    { id: 'o-github', group: 'Open', label: 'GitHub Profile', run: () => open(PROFILE.links.github) },
+    { id: 'o-linkedin', group: 'Open', label: 'LinkedIn Profile', run: () => open(PROFILE.links.linkedin) },
+    { id: 'o-leetcode', group: 'Open', label: 'LeetCode Profile (1758)', run: () => open(PROFILE.links.leetcode) },
+    { id: 'o-cf', group: 'Open', label: 'Codeforces Profile (Specialist)', run: () => open(PROFILE.links.codeforces) },
+    { id: 'o-gfg', group: 'Open', label: 'GeeksforGeeks Profile', run: () => open(PROFILE.links.gfg) },
+    { id: 'o-codolio', group: 'Open', label: 'Codolio Profile', run: () => open(PROFILE.links.codolio) },
+    { id: 'd-email', group: 'Do', label: 'Copy Email Address', run: copyEmail },
     {
       id: 'd-theme',
       group: 'Do',
@@ -125,50 +135,66 @@ export default function App() {
           <section className="block block--hero" id="top">
             <aside className="hero__margin">
               <img className="hero__photo" src="/ProfileP.jpg" alt="Abhishek Kumar" width="320" height="360" />
-              <p>Open to SDE internships</p>
+              <p>Open to Software &amp; Backend Engineering roles</p>
             </aside>
             <div className="block__body">
+              <div className="hero__badge-row">
+                <span className="hero__pill">B.Tech CSE (AI &amp; ML) • CGPA 8.9</span>
+                <span className="hero__pill">1,000+ Algorithmic Problems</span>
+                <span className="hero__pill hero__pill--accent">2nd Place Code Storm 🥈</span>
+              </div>
               <h1 className="hero__name">{PROFILE.name}</h1>
+              <p className="hero__title">{PROFILE.title}</p>
               <p className="hero__lede">
-                I build backend systems that stay correct when requests are retried, and AI workflows that stop and
-                ask a person before they act.
+                I build deterministic backend systems that guarantee correctness when network requests retry, solve
+                complex algorithmic challenges at scale, and architect agentic AI workflows that keep humans in the loop.
               </p>
               <p className="hero__meta">
-                B.Tech student in Computer Science (AI &amp; ML) at NIET, {PROFILE.location}. Java and Spring Boot
-                first, Python for the AI side.
+                Based in {PROFILE.location}. Core focus in Java &amp; Spring Boot, Python &amp; Django/FastAPI, Data
+                Structures &amp; Algorithms, and Applied Generative AI.
               </p>
               <div className="hero__cta">
                 <a className="btn btn--solid" href={PROFILE.resume} download="Abhishek_Kumar_Resume.pdf">
-                  <DownloadIcon /> Download resume
+                  <DownloadIcon /> Download Resume
                 </a>
                 <a className="btn" href={`mailto:${PROFILE.email}`}>
-                  Email me
+                  Email Me
                 </a>
                 <a className="btn" href={PROFILE.links.github} target="_blank" rel="noreferrer">
                   GitHub
+                </a>
+                <a className="btn" href={PROFILE.links.linkedin} target="_blank" rel="noreferrer">
+                  LinkedIn
+                </a>
+                <a className="btn" href={PROFILE.links.leetcode} target="_blank" rel="noreferrer">
+                  LeetCode
                 </a>
               </div>
               <PaymentDemo />
             </div>
           </section>
 
-          <section className="block" id="ratings" aria-labelledby="h-ratings">
-            <h2 className="block__title" id="h-ratings">
-              Ratings
+          <section className="block" id="overview" aria-labelledby="h-overview">
+            <h2 className="block__title" id="h-overview">
+              Overview
             </h2>
             <div className="block__body">
-              <div className="entries">
-                <EntriesHead labels={['Source', 'Detail', 'Result']} />
-                {RATINGS.map((r) => (
-                  <StaticEntry key={r.name} date={r.name} title={r.detail} result={r.result} href={r.href} />
-                ))}
-              </div>
+              <Overview />
+            </div>
+          </section>
+
+          <section className="block" id="problem-solving" aria-labelledby="h-dsa">
+            <h2 className="block__title" id="h-dsa">
+              Problem Solving
+            </h2>
+            <div className="block__body">
+              <ProblemSolving />
             </div>
           </section>
 
           <section className="block" id="work" aria-labelledby="h-work">
             <h2 className="block__title" id="h-work">
-              Work
+              Systems &amp; AI
             </h2>
             <div className="block__body">
               <Work />
@@ -181,7 +207,7 @@ export default function App() {
             </h2>
             <div className="block__body">
               <div className="entries">
-                <EntriesHead labels={['When', 'What', 'Result']} />
+                <EntriesHead labels={['Timeline', 'Organization & Contribution', 'Focus / Tech']} />
                 {EXPERIENCE.map((x) => (
                   <StaticEntry key={x.title} {...x} />
                 ))}
@@ -205,14 +231,23 @@ export default function App() {
             </div>
           </section>
 
+          <section className="block" id="certifications" aria-labelledby="h-certs">
+            <h2 className="block__title" id="h-certs">
+              Credentials
+            </h2>
+            <div className="block__body">
+              <Certifications />
+            </div>
+          </section>
+
           <section className="block" id="contact" aria-labelledby="h-contact">
             <h2 className="block__title" id="h-contact">
               Contact
             </h2>
             <div className="block__body">
               <p className="contact__lead">
-                I am looking for an SDE or AI engineering internship. Tell me about the team and the problem, and I
-                will reply to the email you give.
+                I am actively seeking Software Engineering, Backend, and AI Engineering roles. Whether you have an
+                architectural challenge, an internship opening, or a full-time role, let's talk.
               </p>
               <Contact />
             </div>
@@ -220,7 +255,16 @@ export default function App() {
         </main>
 
         <footer className="foot">
-          <p className="block__body">© {YEAR} {PROFILE.name}</p>
+          <div className="block__body foot__in">
+            <p>© {YEAR} {PROFILE.name} • Built with React &amp; Vite</p>
+            <div className="foot__links">
+              <a href={PROFILE.links.github} target="_blank" rel="noreferrer">GitHub</a>
+              <a href={PROFILE.links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+              <a href={PROFILE.links.leetcode} target="_blank" rel="noreferrer">LeetCode</a>
+              <a href={PROFILE.links.codeforces} target="_blank" rel="noreferrer">Codeforces</a>
+              <a href={PROFILE.links.codolio} target="_blank" rel="noreferrer">Codolio</a>
+            </div>
+          </div>
         </footer>
       </div>
 
