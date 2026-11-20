@@ -1,11 +1,14 @@
-// All the content of the site lives here. Edit this file to change text, links and numbers.
+// Central data store for Abhishek Kumar's personal portfolio.
+// Clear, simple, and human-written engineering content.
 
 export const PROFILE = {
   name: 'Abhishek Kumar',
-  title: 'Software Engineer | Backend Systems, Problem Solving (DSA) & Agentic AI',
+  role: 'Software Engineer & Builder',
+  tagline: 'Backend Systems • Data Structures & Algorithms • Practical AI',
   email: 'aksinghbgp1230@gmail.com',
   phone: '+91-9608035609',
   location: 'Greater Noida, India',
+  status: 'Open to SDE / Backend internships & full-time roles',
   resume: '/Abhishek_Kumar_Resume.pdf',
   links: {
     github: 'https://github.com/Abhishekkumar071',
@@ -17,392 +20,425 @@ export const PROFILE = {
   },
 }
 
-// Web3Forms keys are meant to be public (they only allow sending mail to your own inbox).
+// Web3Forms access key for the contact form
 export const WEB3FORMS_KEY = '79415c8b-52e7-4db6-bad7-fc1045db404a'
 
+// Key numbers displayed with animated count-up
+export const STATS = [
+  { value: 1000, suffix: '+', label: 'DSA Problems Solved', note: 'LeetCode, Codeforces & GFG' },
+  { value: 1758, suffix: '', label: 'LeetCode Contest Rating', note: 'Top 9.68% worldwide' },
+  { value: 2, prefix: '#', suffix: 'nd Place', label: 'Code Storm Hackathon 🥈', note: 'DSA Speed & Optimization' },
+  { value: 50, suffix: '+', label: 'REST APIs Shipped', note: 'Spring Boot & Django' },
+]
+
+// Three simple engineering principles written in clear, human language
 export const PILLARS = [
   {
-    tag: 'Core Discipline 01',
-    title: 'Backend & Distributed Correctness',
-    description:
-      'Designing transactional systems where failures never leave partial state. Specializing in Spring Boot, Django, ACID guarantees, idempotency under network retries, and cache-aside architectures with sub-millisecond lookups.',
+    number: '01',
+    title: 'Never lose data or charge twice',
+    tag: 'Backend Engineering',
+    summary:
+      'When someone clicks "Pay", a spotty internet connection should not take their money twice. I build backends where requests either finish 100% or roll back cleanly, with built-in safety nets for retries.',
+    tech: 'Java, Spring Boot, PostgreSQL, ACID, Django, REST APIs',
   },
   {
-    tag: 'Core Discipline 02',
-    title: 'Algorithmic Rigor & Problem Solving',
-    description:
-      'Over 1,000 algorithmic problems solved across LeetCode (1,758 rating, Top 9.68%) and Codeforces (Specialist, 1,491). 2nd place podium finish at the NIET Code Storm Hackathon with team OUR RAK.',
+    number: '02',
+    title: 'Speed and logic under pressure',
+    tag: 'Problem Solving (DSA)',
+    summary:
+      'Over 1,000 problems solved across LeetCode and Codeforces. It’s not just about passing tests—it’s about knowing how to pick the right data structure so software stays fast as millions of users join.',
+    tech: 'Algorithms, Binary Search, Trees, Graphs, Dynamic Programming',
   },
   {
-    tag: 'Core Discipline 03',
-    title: 'Agentic AI & Human-in-the-Loop',
-    description:
-      'Building production-ready Generative AI systems. Utilizing LangGraph for multi-step agent orchestration with state checkpointing, hybrid RAG with reciprocal rank fusion, and explicit human approval gates before executing high-impact actions.',
+    number: '03',
+    title: 'AI that helps people instead of guessing',
+    tag: 'Practical AI & LLMs',
+    summary:
+      'AI models are fun, but they make mistakes. I build multi-step AI pipelines where the model does the heavy lifting (sorting text, summarizing, searching docs), but a human always approves critical decisions.',
+    tech: 'LangGraph, LangChain, RAG, ChromaDB, FastAPI, Python',
   },
 ]
 
-export const DSA_ACHIEVEMENTS = [
+// Real competitive programming and hackathon achievements
+export const DSA_CARDS = [
   {
-    category: 'Podium Finish',
-    title: '2nd Place 🥈 — Code Storm Hackathon',
-    subtitle: 'Noida Institute of Engineering & Technology (NIET) • Team OUR RAK',
-    detail:
-      'Contest challenge focusing on high-speed algorithm design, search/sort optimization, and writing clean, optimal code under strict time constraints.',
-    result: '2nd Place 🥈',
-    badge: 'Contest Podium',
-    image: '/certification/2nd possition in dsa hackthon at niet.jpg',
+    id: 'hackathon',
+    badge: 'Podium Finish 🥈',
+    title: '2nd Place — Code Storm Hackathon',
+    location: 'NIET • Team OUR RAK',
+    description:
+      'Competed in a fast-paced college coding hackathon. Our team took 2nd place by solving complex problem statements quickly, choosing the most optimal algorithms, and writing bug-free code under strict time pressure.',
+    highlight: '2nd Place 🥈',
+    actionText: 'View Award Certificate',
+    actionHref: '/certification/2nd possition in dsa hackthon at niet.jpg',
   },
   {
-    category: 'Global Contest',
-    title: 'LeetCode Contest Rating',
-    subtitle: 'Competitive Programming profile: Abhishek670',
-    detail: 'Contest rating 1,758. Ranked in the top 9.68% of competitive programmers globally with over 1,000+ problems solved across all difficulty tiers.',
-    result: 'Rating 1758',
-    badge: 'Top 9.68%',
-    href: PROFILE.links.leetcode,
+    id: 'leetcode',
+    badge: 'Top 9.68% Worldwide',
+    title: 'LeetCode Contest Rating: 1,758',
+    location: 'Handle: Abhishek670',
+    description:
+      'Consistently participate in weekly LeetCode contests. Solved 1,000+ problems across arrays, trees, dynamic programming, two pointers, and greedy approaches.',
+    highlight: 'Rating: 1,758',
+    actionText: 'Open LeetCode Profile',
+    actionHref: PROFILE.links.leetcode,
   },
   {
-    category: 'Global Contest',
-    title: 'Codeforces Specialist',
-    subtitle: 'Competitive Programming profile: abhishek_670',
-    detail: 'Peak rating 1,491 / 1,494 (Specialist tier). Over 350+ contest and practice problems solved focusing on dynamic programming, graph theory, and number theory.',
-    result: 'Specialist',
-    badge: 'Rating 1491',
-    href: PROFILE.links.codeforces,
+    id: 'codeforces',
+    badge: 'Specialist Rank',
+    title: 'Codeforces Specialist (1,491)',
+    location: 'Handle: abhishek_670',
+    description:
+      'Specialist tier on Codeforces with 350+ solved challenges. Regular contest participation builds strong intuition for time complexity limits and edge cases.',
+    highlight: 'Specialist',
+    actionText: 'Open Codeforces Profile',
+    actionHref: PROFILE.links.codeforces,
   },
   {
-    category: 'Worldwide Prelims',
-    title: 'IICPC CodeFest 2026',
-    subtitle: 'Global Competitive Programming Prelims',
-    detail: 'Ranked 3,545 out of 13,000+ worldwide participants in competitive problem solving.',
-    result: 'Rank 3545',
-    badge: 'Top 25%',
+    id: 'iicpc',
+    badge: 'Top 25% Worldwide',
+    title: 'IICPC CodeFest 2026 Prelims',
+    location: 'Global Prelims Round',
+    description:
+      'Secured Rank 3,545 out of 13,000+ competitive programming participants worldwide in the global qualification round.',
+    highlight: 'Rank 3,545',
+    actionText: 'Contest Result',
   },
   {
-    category: 'Unified Metric',
-    title: 'Codolio Profile & Practice Portfolio',
-    subtitle: 'Aggregated C-Score across LeetCode, Codeforces, and GeeksforGeeks',
-    detail: 'Comprehensive portfolio of 1,000+ solved algorithmic problems spanning trees, graphs, dynamic programming, two pointers, and greedy algorithms.',
-    result: '1000+ Solved',
-    badge: 'Codolio Verified',
-    href: PROFILE.links.codolio,
+    id: 'codolio',
+    badge: 'Unified Tracking',
+    title: 'Codolio Practice Portfolio',
+    location: 'Handle: Abhishek_123',
+    description:
+      'All my coding practice aggregated in one verified profile across LeetCode, Codeforces, and GeeksforGeeks.',
+    highlight: '1000+ Solved',
+    actionText: 'Open Codolio',
+    actionHref: PROFILE.links.codolio,
   },
   {
-    category: 'Institutional Selection',
-    title: 'NEST For Coders — Top 29 Selection',
-    subtitle: 'Noida Institute of Engineering & Technology',
-    detail: 'Selected into an elite group of 29 students across the institution dedicated to advanced algorithmic problem solving, peer code review, and hackathon training.',
-    result: 'Top 29 Coders',
-    badge: 'Selected',
+    id: 'nest',
+    badge: 'Top 29 Selected',
+    title: 'NEST For Coders — Elite Group',
+    location: 'NIET Coding Hub',
+    description:
+      'Selected among the top 29 programmers across the institute to mentor peers, review code, and represent the college in hackathons.',
+    highlight: 'Top 29 Coders',
   },
 ]
 
+// Projects explained in simple, human terms
 export const PROJECTS = [
   {
     id: 'talentpilot',
-    category: 'Agentic AI',
+    category: 'Practical AI',
     date: '2026',
     title: 'TalentPilot',
-    sub: 'Multi-agent hiring platform with LangGraph checkpointing & 4 HR approval gates',
+    sub: 'Hiring assistant that pauses for HR before taking any big action',
+    tagline: 'Multi-agent AI hiring platform with human approval checkpoints',
     result: '4 HR Approval Gates',
     summary:
-      'HR teams spend days writing job posts, sorting resumes, running tests and drafting offers. TalentPilot automates the end-to-end recruitment pipeline with LangGraph agents and explicitly pauses for human authorization at every critical decision point.',
-    points: [
-      'Multi-agent state workflows built with LangGraph and checkpointed in PostgreSQL; pipeline states persist indefinitely across server restarts and can retry failed steps independently.',
-      'Hybrid resume-scoring engine combining an LLM rubric (45%), must-have criteria matching (25%), semantic vector similarity (15%), and experience fit (15%), with automatic PII anonymization prior to scoring.',
-      'Policy-compliant job descriptions and offer letters drafted using hybrid RAG (BM25 + vector embeddings merged via Reciprocal Rank Fusion), with compensation strictly clamped to approved salary bands.',
-      'In-browser coding assessment with MediaPipe computer vision proctoring (gaze tracking, multiple faces, device detection); flags are logged as non-disqualifying evidence for human review.',
+      'HR teams waste dozens of hours sorting resumes, writing job posts, and scheduling tests. TalentPilot automates the boring work, but it never rejects someone or sends an offer letter without an HR manager clicking "Approve".',
+    whatIBuilt: [
+      'Built a multi-step workflow in LangGraph where agents draft job posts, screen resumes, and conduct proctored tests.',
+      'Saved workflow progress into PostgreSQL so a hiring process can wait days for an applicant to reply, survive a server restart, and resume without losing data.',
+      'Resumes are anonymized (names and photos hidden) before scoring to prevent unconscious bias.',
+      'Offer letters are strictly capped to the approved salary range, so the AI never promises numbers the company cannot pay.',
     ],
-    stack: 'Python, FastAPI, LangGraph, LangChain, Pydantic, React, MediaPipe, PostgreSQL',
-    links: [{ label: 'View code on GitHub', href: 'https://github.com/Abhishekkumar071/TalentPilot' }],
+    stack: 'Python, FastAPI, LangGraph, LangChain, React, MediaPipe, PostgreSQL',
+    links: [{ label: 'View Code on GitHub', href: 'https://github.com/Abhishekkumar071/TalentPilot' }],
     flow: true,
   },
   {
     id: 'bank',
     category: 'Backend Systems',
     date: '2026',
-    title: 'Secure Bank and Payment Processing System',
-    sub: 'Transactional banking core with distributed idempotency & ACID guarantees',
-    result: 'ACID, Zero Double Debits',
+    title: 'Secure Bank & Payment System',
+    sub: 'Transfers that never leave money half-moved, even if Wi-Fi drops',
+    tagline: 'Reliable banking backend with ACID transactions and duplicate-payment protection',
+    result: 'Zero Double Charges',
     summary:
-      'A financial transaction must complete in its entirety or roll back completely, and a retried client request over an unreliable network must never double-debit an account.',
-    points: [
-      'Fund transfer execution enclosed in strict ACID database transactions, preventing partial balance movements during runtime or hardware faults.',
-      'Distributed idempotency mechanism enforcing unique request keys at the database constraint level, cleanly neutralizing duplicate submissions caused by client-side retries.',
-      'Account balance concurrency protection using pessimistic and optimistic locking patterns to guard against simultaneous transfer race conditions.',
-      'Eliminated Hibernate N+1 query antipatterns via JOIN FETCH and entity graph optimizations, reducing database round-trips on primary query paths.',
-      'BCrypt salted password hashing, JWT stateless authentication, and comprehensive audit ledger logging.',
+      'If you click "Send Money" and your phone screen freezes, did it go through? If you click again, will you get charged twice? This project makes transfers 100% safe against network drops and duplicate clicks.',
+    whatIBuilt: [
+      'Wrapped every money transfer in database ACID transactions: money either leaves Account A and lands in Account B completely, or no money moves at all.',
+      'Added idempotency keys: each transfer request has a unique ID stored in PostgreSQL, instantly blocking duplicate charges on retries. (Try the live demo at the top!)',
+      'Locked accounts during active transfers so two family members cannot spend the exact same ₹10,000 at the same split second.',
+      'Fixed Hibernate N+1 query slowdowns with JOIN FETCH, making frequent account lookups much faster.',
     ],
     stack: 'Java, Spring Boot, PostgreSQL, Hibernate, Spring Security, BCrypt',
     links: [
       {
-        label: 'View code on GitHub',
+        label: 'View Code on GitHub',
         href: 'https://github.com/Abhishekkumar071/Secure-Bank-management-and-payment-processing-System',
       },
     ],
     image: '/bank_management.png',
-    imageAlt: 'Login and transaction dashboard of the secure bank application',
+    imageAlt: 'Login screen and transaction panel of the bank application',
   },
   {
     id: 'warpurl',
     category: 'Backend Systems',
     date: '2026',
-    title: 'WarpURL — High-Performance URL Shortener',
-    sub: 'URL shortener with MurmurHash3, Base62 encoding & Caffeine cache-aside',
-    result: 'Base62 & In-Memory Cache',
+    title: 'WarpURL — Super Fast Link Shortener',
+    sub: 'Turns huge messy links into short URLs with sub-millisecond redirects',
+    tagline: 'High-speed URL shortener with in-memory caching and click analytics',
+    result: 'Sub-Millisecond Redirects',
     summary:
-      'Designed for high throughput and low latency, WarpURL converts long URLs into collision-free Base62 keys with sub-millisecond redirection and asynchronous click telemetry.',
-    points: [
-      'Generates unique short keys through MurmurHash3 32-bit hashing and Base62 encoding, avoiding sequential ID enumeration vulnerabilities.',
-      'Implemented cache-aside pattern using Caffeine in-memory cache, keeping the hottest redirect routes off the persistent database disk path.',
-      'Asynchronous click analytics and referral tracking executed outside the critical redirection request-response loop.',
-      'Database query optimization with composite B-tree indexes; secured with JWT authentication, RBAC, and Bucket4j token-bucket rate limiting.',
-      'Containerized with Docker and deployed with PostgreSQL in cloud infrastructure.',
+      'Link shorteners need to be blazing fast because every millisecond of redirect delay annoys the user. WarpURL uses in-memory caching to redirect users instantly while tracking clicks in the background.',
+    whatIBuilt: [
+      'Created short, collision-free codes using MurmurHash3 and Base62 encoding (like bit.ly).',
+      'Used Caffeine in-memory cache so popular links redirect instantly without querying the database disk every time.',
+      'Tracked clicks, browsers, and timestamps asynchronously so analytics logging never slows down the visitor redirect.',
+      'Added token-bucket rate limiting (Bucket4j) so nobody can spam or crash the server with automated bots.',
     ],
     stack: 'Java, Spring Boot, React, PostgreSQL, Caffeine Cache, Docker, Bucket4j',
-    links: [{ label: 'View repository', href: 'https://github.com/Abhishekkumar071' }],
+    links: [{ label: 'GitHub Profile', href: 'https://github.com/Abhishekkumar071' }],
   },
   {
     id: 'insurai',
     category: 'Full-Stack & Cloud',
     date: 'Oct–Dec 2025',
-    title: 'InsurAI — Intelligent Insurance Platform',
-    sub: 'Built during Infosys Springboard Virtual Internship 6.0 (Nationwide cohort)',
+    title: 'InsurAI — Insurance Platform',
+    sub: 'Built during Infosys Springboard internship with 50+ REST APIs',
+    tagline: 'End-to-end insurance portal with policy recommendations and Gemini chatbot',
     result: '50+ REST APIs on AWS',
     summary:
-      'A digital insurance platform transforming traditional manual underwriting into an automated self-service experience with AI-powered policy discovery, risk classification, and claim filing.',
-    points: [
-      'Engineered a scalable Spring Boot and MySQL backend exposing 50+ REST APIs, secured with JWT and role-based access control (RBAC) separating customers and claims adjusters.',
-      'Integrated an asynchronous notification pipeline using RabbitMQ message queues to handle policy approval events without blocking HTTP request threads.',
-      'Built a companion Python FastAPI recommendation service using vector similarity to suggest personalized coverage plans based on user risk profiles.',
-      'Integrated a Gemini-powered conversational assistant to clarify policy terms, coverage exclusions, and claim prerequisites.',
-      'Deployed production services across AWS EC2, S3, and RDS; verified reliability with JUnit 5, Mockito, and Postman regression suites.',
+      'Buying insurance usually involves stacks of paperwork and slow agents. InsurAI lets users explore policies, get AI-based recommendations, and submit claims online in minutes.',
+    whatIBuilt: [
+      'Built 50+ REST APIs with Spring Boot and MySQL, secured with role-based access control for customers and admins.',
+      'Added RabbitMQ message queues so notifications and emails send in the background without freezing the webpage.',
+      'Created a small Python recommendation service that matches customer age and budget to the best insurance plan.',
+      'Integrated a Gemini AI assistant to explain complicated insurance terms in simple, everyday language.',
+      'Deployed on AWS (EC2 for backend, S3 for frontend, RDS for database) with JUnit 5 unit tests.',
     ],
-    stack: 'Java, Spring Boot, MySQL, React, RabbitMQ, FastAPI, Gemini API, AWS (EC2, S3, RDS)',
-    links: [{ label: 'View code on GitHub', href: 'https://github.com/Abhishekkumar071/InsurAI' }],
+    stack: 'Java, Spring Boot, MySQL, React, RabbitMQ, FastAPI, Gemini API, AWS',
+    links: [{ label: 'View Code on GitHub', href: 'https://github.com/Abhishekkumar071/InsurAI' }],
     image: '/InsurAI.png',
-    imageAlt: 'InsurAI portal home page showcasing intelligent insurance plan exploration',
+    imageAlt: 'InsurAI dashboard showing policy search and personalized recommendations',
   },
   {
     id: 'ecommerce',
     category: 'Backend Systems',
     date: '2026',
-    title: 'Enterprise eCommerce Backend Masterclass',
-    sub: 'Full-stack commercial storefront with Stripe payment integration & multi-tier RBAC',
-    result: 'Stripe & Stateless Auth',
+    title: 'Full-Stack eCommerce Platform',
+    sub: 'Complete online store with real Stripe payment checkout and role access',
+    tagline: 'Spring Boot eCommerce architecture with customer cart and admin dashboard',
+    result: 'Stripe & JWT Security',
     summary:
-      'A production-grade eCommerce architecture featuring complex entity relationships, customer cart workflows, Stripe payment checkout, and seller/admin management portals.',
-    points: [
-      'Designed a clean layered domain architecture with Spring Boot, Spring Data JPA, and Hibernate, managing orders, products, inventory, and categories.',
-      'Integrated Stripe Payment Gateway with webhook listener verifying cryptographic signatures for asynchronous payment capture and order fulfillment.',
-      'Stateless security layer leveraging Spring Security and JSON Web Tokens (JWT) enforcing granular permissions across Customers, Vendors, and Platform Administrators.',
-      'Automated schema migration and database indexing on MySQL/PostgreSQL with comprehensive integration testing.',
+      'A complete online shopping store built to master real-world Spring Boot enterprise architecture. Handles product catalogs, customer shopping carts, Stripe card checkout, and seller dashboards.',
+    whatIBuilt: [
+      'Clean layered Spring Boot architecture (Controller → Service → Repository → Database).',
+      'Real Stripe payment gateway integration with secure webhook listeners to mark orders as paid.',
+      'Stateless security using JSON Web Tokens (JWT) so users stay safely logged in.',
+      'Admin and seller panels to add products, adjust inventory counts, and view incoming orders.',
     ],
-    stack: 'Java, Spring Boot, Spring Security, JWT, Stripe API, Hibernate, MySQL, React, AWS',
-    links: [{ label: 'View GitHub Profile', href: 'https://github.com/Abhishekkumar071' }],
+    stack: 'Java, Spring Boot, Spring Security, JWT, Stripe API, Hibernate, MySQL, React',
+    links: [{ label: 'GitHub Repositories', href: 'https://github.com/Abhishekkumar071' }],
   },
   {
     id: 'chatlens',
-    category: 'AI & Data Engineering',
+    category: 'Practical AI',
     date: '2026',
-    title: 'ChatLens — Chat Analytics Pipeline',
-    sub: 'Unstructured text ingestion engine processing 50K+ messages with NLP sentiment',
+    title: 'ChatLens — Chat Analytics Dashboard',
+    sub: 'Turns messy exported WhatsApp & Telegram chats into clean charts',
+    tagline: 'Text parsing pipeline that handles 50,000+ messages without crashing',
     result: '50K+ Messages Processed',
     summary:
-      'Chat exports are notoriously unstructured and irregular across platforms and regional date notations. ChatLens normalizes raw chat logs into actionable behavioral insights and sentiment trends.',
-    points: [
-      'Engineered an ingestion regex pipeline in Python capable of parsing disparate WhatsApp and Telegram date-time timestamps and multi-line message formats without data loss.',
-      'Incorporated NLTK sentiment analysis, lexical diversity analysis, and user engagement heatmaps to visualize communication cadence and response latency.',
-      'Leveraged in-memory caching and vectorized Pandas routines to achieve responsive dashboard rendering over 50,000+ raw messages in Streamlit.',
-      'Packaged in Docker containers with an automated GitHub Actions CI/CD pipeline running pytest suites on every Git push.',
+      'Every chat app formats dates and emojis differently, and raw exported files are notoriously messy. ChatLens cleans up raw chat files and shows when people talk, who texts most, and the overall mood of the group.',
+    whatIBuilt: [
+      'Wrote a smart Python parser that handles weird timestamps, multi-line texts, and deleted messages.',
+      'Added sentiment analysis (NLTK) and activity heatmaps to visualize peak chatting hours.',
+      'Added in-memory caching so the Streamlit dashboard stays snappy even on massive 50,000+ message chats.',
+      'Containerized with Docker and set up automated tests on GitHub Actions.',
     ],
-    stack: 'Python, Pandas, NLTK, Streamlit, Docker, GitHub Actions, Pytest',
+    stack: 'Python, Pandas, NLTK, Streamlit, Docker, GitHub Actions',
     links: [
-      { label: 'View code on GitHub', href: 'https://github.com/Abhishekkumar071/ChatLens' },
+      { label: 'View Code on GitHub', href: 'https://github.com/Abhishekkumar071/ChatLens' },
       { label: 'Live Streamlit Demo', href: 'https://chatlens-demo.streamlit.app' },
     ],
   },
   {
     id: 'docqa',
-    category: 'Agentic AI',
+    category: 'Practical AI',
     date: '2024',
     title: 'Document Q&A Engine (RAG)',
-    sub: 'Grounded question answering over PDFs with ChromaDB & Llama 3.3 via Groq',
-    result: 'Semantic Vector Retrieval',
+    sub: 'Upload a PDF and ask questions — answers come strictly from your file',
+    tagline: 'Accurate document question-answering without AI hallucination',
+    result: 'Grounded Answers',
     summary:
-      'Eliminates large language model hallucinations when analyzing complex PDF documentation by grounding answers strictly in retrieved vector chunks.',
-    points: [
-      'Recursive document parsing and chunking with LangChain, producing dense semantic embeddings stored in a ChromaDB vector index.',
-      'Ultra-low latency retrieval and inference pipeline combining cosine similarity search with Llama 3.3 hosted on Groq LPU hardware.',
-      'FastAPI backend with SQLAlchemy and SQLite/PostgreSQL managing conversational session state and multi-turn context retention.',
-      'Streamlit interface providing document preview, citation passage highlighting, and automated executive summaries.',
+      'AI models love making things up when they don’t know the answer. This engine splits your PDF into small pieces, finds the exact matching paragraphs, and forces the model to answer only using your text.',
+    whatIBuilt: [
+      'Split PDFs into smart chunks using LangChain and stored their meaning into a ChromaDB vector database.',
+      'Connected Llama 3.3 running on Groq hardware for fast answers in less than one second.',
+      'Built a FastAPI backend that saves chat history so follow-up questions remember past context.',
+      'Clean Streamlit interface where anyone can drag-and-drop a PDF and start asking questions.',
     ],
-    stack: 'Python, FastAPI, LangChain, ChromaDB, Groq (Llama 3.3), SQLAlchemy, Streamlit',
-    links: [{ label: 'View code on GitHub', href: 'https://github.com/Abhishekkumar071/document-qa-engine' }],
+    stack: 'Python, FastAPI, LangChain, ChromaDB, Groq (Llama 3.3), Streamlit',
+    links: [{ label: 'View Code on GitHub', href: 'https://github.com/Abhishekkumar071/document-qa-engine' }],
     image: '/doc_qa.png',
-    imageAlt: 'Document QA Engine interface showing PDF query and grounded model answer',
+    imageAlt: 'Document QA interface with PDF uploaded and grounded question answer',
   },
   {
     id: 'moodvision',
-    category: 'AI & Computer Vision',
+    category: 'Computer Vision',
     date: '2023',
-    title: 'MoodVision — Real-Time Emotion Classifier',
-    sub: 'Convolutional neural network inference over live webcam video streams',
-    result: '63% Accuracy on FER2013',
+    title: 'MoodVision — Live Emotion Classifier',
+    sub: 'Detects facial emotions in real time through your webcam',
+    tagline: 'Deep learning computer vision model running at 30+ frames per second',
+    result: '63% on FER2013',
     summary:
-      'A deep learning vision pipeline that detects human faces and classifies emotional expressions in real time directly from camera feeds.',
-    points: [
-      'Trained a custom convolutional neural network (CNN) on the FER2013 dataset (32,300+ facial images across 7 discrete emotion categories), reaching 63% validation accuracy.',
-      'Integrated OpenCV Haar Cascade classifiers for real-time bounding box face localization prior to CNN tensor feeding.',
-      'Optimized frame pre-processing (grayscale conversion, normalization, and resizing) to maintain real-time 30+ FPS throughput on standard CPU hardware.',
+      'A deep learning project that spots faces through a live webcam and predicts whether the person is happy, sad, angry, surprised, or neutral.',
+    whatIBuilt: [
+      'Trained a Convolutional Neural Network (CNN) on 32,300+ facial images across 7 emotions, reaching 63% test accuracy.',
+      'Used OpenCV to instantly draw bounding boxes around faces in the camera frame.',
+      'Streamlined frame processing so predictions run smoothly at 30+ FPS on regular laptop processors without needing an expensive GPU.',
     ],
     stack: 'Python, TensorFlow, Keras, CNNs, OpenCV',
-    links: [{ label: 'View code on GitHub', href: 'https://github.com/Abhishekkumar071/MoodVision' }],
+    links: [{ label: 'View Code on GitHub', href: 'https://github.com/Abhishekkumar071/MoodVision' }],
     image: '/moodVission.png',
-    imageAlt: 'MoodVision webcam interface displaying real-time emotion detection boxes',
+    imageAlt: 'MoodVision webcam interface with green emotion detection boxes on faces',
   },
 ]
 
-// Steps of the TalentPilot workflow. `gate` means the workflow pauses for a person.
+// The 9 steps of TalentPilot explained simply
 export const FLOW = [
   {
-    short: 'Request',
-    title: 'HR Initiates Request',
-    text: '“Hire a backend engineer with 3 to 5 years experience.” The agent normalizes natural language input into a structured hiring specification with schema validation.',
+    short: '1. Request',
+    title: 'HR types a normal sentence',
+    text: '“Hire a backend engineer with 3 years of Java experience.” The system turns that sentence into clear requirements.',
   },
   {
-    short: 'JD Generator',
-    title: 'Policy-Grounded Job Description',
-    text: 'Agents query internal salary bands, compliance rules, and past top-performing job specs using hybrid RAG (BM25 + embeddings). Produces a drafted job spec with policy citations.',
-    gate: 'HR reviews, edits, or asks the agent for adjustments.',
+    short: '2. Job Post',
+    title: 'AI drafts the job description',
+    text: 'Agents check company policy and salary ranges to draft a fair, compliant job post with source citations.',
+    gate: 'HR reviews, edits, or asks for adjustments before anything goes live.',
   },
   {
-    short: 'Multichannel Post',
-    title: 'Syndicate Job Posting',
-    text: 'Publishes directly to the careers portal and candidate Telegram channels. Generates formatted social copy for LinkedIn and Naukri.',
+    short: '3. Publish',
+    title: 'Post to careers page',
+    text: 'The job is posted automatically to the company site and Telegram, with ready-to-copy drafts for LinkedIn.',
   },
   {
-    short: 'Pipeline Replan',
-    title: 'Application Health Evaluation',
-    text: 'Upon deadline closure, the workflow evaluates applicant quality against the benchmark rubric. If qualified candidate volume is low, it analyzes root causes (e.g. rigid salary, location constraints) and suggests revisions.',
-    gate: 'HR must approve any revised scope or reposting strategy.',
+    short: '4. Checkup',
+    title: 'Review applicant volume',
+    text: 'If too few qualified people applied, the system analyzes why (salary too tight? location too strict?) and suggests improvements.',
+    gate: 'HR approves any proposed rewrite before reposting.',
   },
   {
-    short: 'Anonymized Screen',
-    title: 'Bias-Free Resume Scoring',
-    text: 'Removes candidate name, gender, age, and contact information. Evaluates resumes across 4 weighted components: LLM rubric (45%), must-have technical skills (25%), semantic relevance (15%), and career trajectory fit (15%).',
+    short: '5. Screen',
+    title: 'Anonymized resume screening',
+    text: 'Names, photos, and contact info are hidden. Resumes are scored purely on skills, experience, and project relevance.',
   },
   {
-    short: 'Proctored Test',
-    title: 'Interactive Coding & Integrity Screen',
-    text: 'Candidates complete algorithm challenges and domain questions in a sandboxed browser IDE. MediaPipe computer vision monitors for gaze deviation, phone detection, and tab switching. Flags are recorded as review evidence.',
+    short: '6. Code Test',
+    title: 'In-browser coding challenge',
+    text: 'Candidates write code in the browser. MediaPipe checks for tab switching or second people. Flags are recorded as notes for HR, never an automatic disqualification.',
   },
   {
-    short: 'AI Voice Interview',
-    title: 'Adaptive Technical Interview',
-    text: 'An automated browser speech session asking context-aware follow-up questions tailored to the candidate’s coding assessment performance.',
+    short: '7. Voice Chat',
+    title: 'Follow-up technical interview',
+    text: 'A friendly automated voice interview asks context questions about the candidate’s code submissions.',
   },
   {
-    short: 'Hiring Decision',
-    title: 'Holistic Candidate Dossier',
-    text: 'Synthesizes resume scores, code quality metrics, integrity telemetry, and voice interview answers into a unified recommendation dossier.',
-    gate: 'HR and engineering hiring manager make the definitive hire/no-hire decision.',
+    short: '8. Decision',
+    title: 'Complete candidate summary',
+    text: 'Resume scores, coding test results, and interview answers are combined into a clean, 1-page report.',
+    gate: 'HR and the engineering manager make the final hire/no-hire decision.',
   },
   {
-    short: 'Offer Letter',
-    title: 'Policy-Bounded Offer Generation',
-    text: 'Generates formal offer PDF with compensation strictly clamped within approved institutional salary bands.',
-    gate: 'HR reviews, customizes, and digitally signs before dispatch.',
+    short: '9. Offer',
+    title: 'Offer letter creation',
+    text: 'An official offer PDF is generated. The salary is automatically checked to make sure it stays within company limits.',
+    gate: 'HR signs and sends the offer.',
   },
 ]
 
+// Real work experience written like a human
 export const EXPERIENCE = [
   {
     date: 'Sep 2026 – Present',
-    title: 'Application Backend & Access-Control Engineer',
+    title: 'Backend & Access Control Engineer',
     sub: 'InChi Pilot Gateway • Singapore / Remote',
-    body: 'Developing core backend services for a cross-border B2B supplier-buyer gateway using Python, Django 5.2, and Django REST Framework. Architecting Supplier Registry and Product Catalogue modules with session-based authentication, granular Role-Based Access Control (RBAC), and object-level permissions. Collaborating in an Agile delivery framework using Docker, Git-based PR reviews, and automated test pipelines.',
+    body: 'Building the core backend for a B2B platform connecting Indian suppliers with international buyers. Writing Python and Django REST APIs for supplier registries and product catalogs, with secure session logins, role-based permissions, and Docker development environments.',
     result: 'Django 5.2 & RBAC',
   },
   {
     date: 'Oct–Dec 2025',
     title: 'Java Full Stack Developer Intern',
     sub: 'Infosys Springboard Virtual Internship 6.0',
-    body: 'Selected into a highly competitive nationwide cohort (~2-5% acceptance). Engineered the InsurAI enterprise platform end to end: Java, Spring Boot, MySQL, and React. Built 50+ REST endpoints, asynchronous RabbitMQ message queues for event-driven updates, FastAPI recommendation integration, and Gemini conversational assistant. Deployed on AWS EC2, S3, and RDS with full JUnit 5 & Mockito test coverage.',
-    result: '50+ REST APIs on AWS',
+    body: 'Selected in the top ~2-5% nationwide cohort to build InsurAI from scratch. Created 50+ REST APIs in Spring Boot, added RabbitMQ message queues for background notifications, built a Gemini chatbot for policy questions, and deployed everything on AWS EC2, S3, and RDS.',
+    result: '50+ APIs on AWS',
   },
   {
     date: 'Aug–Oct 2025',
     title: 'Data Strategy Intern',
     sub: 'The Moronss • Technical Department',
-    body: 'Engaged in data analysis, structural data processing pipelines, and data strategy workflows supporting technical department operations and cross-team decision systems.',
+    body: 'Worked on data workflows, cleaning operational datasets, and structuring technical data pipelines for team decision-making.',
     result: 'Data Pipelines',
   },
   {
     date: '2023–2027',
     title: 'B.Tech in Computer Science & Engineering (AI & ML)',
-    sub: 'Noida Institute of Engineering and Technology (NIET), Greater Noida',
-    body: 'Focusing on core computer science foundations, algorithms, systems engineering, machine learning, and distributed backend development. Maintaining academic excellence with an 8.9 CGPA.',
-    result: 'CGPA 8.9',
+    sub: 'Noida Institute of Engineering & Technology (NIET)',
+    body: 'Studying core computer science, algorithms, operating systems, databases, and machine learning. Maintaining an 8.9 CGPA while building real projects and competing in coding contests.',
+    result: 'CGPA: 8.9 / 10',
   },
   {
     date: 'Leadership',
-    title: 'IEEE Computer Society Membership Chair',
-    sub: 'NIET IEEE Student Branch Chapter (IEEE UP Section)',
-    body: 'Spearheaded technical events, coding workshops, hackathons, and placement preparation initiatives. Facilitated peer mentoring in algorithms and modern software engineering practices.',
-    result: 'Executive Chair',
+    title: 'Membership Chair — IEEE Computer Society',
+    sub: 'NIET IEEE Student Branch Chapter',
+    body: 'Organized hands-on coding workshops, hackathons, and placement preparation series for fellow students. Passionate about helping other engineers get better at DSA and building.',
+    result: 'Student Leader',
   },
   {
-    date: 'Selective Cohort',
+    date: 'Selected',
     title: 'NEST For Coders — Top 29 Coders',
-    sub: 'Official NIET Collaborative Coding & Problem Solving Hub',
-    body: 'Hand-selected into the top 29 programmers across the institution for advanced competitive programming, data structure deep dives, and collaborative hackathon teams.',
+    sub: 'NIET Competitive Coding Group',
+    body: 'Selected as one of the 29 strongest coders at the college for advanced algorithmic problem-solving sessions and inter-college hackathons.',
     result: 'Top 29 Selected',
   },
 ]
 
-export const STACK = [
+// Tech stack grouped in a logical, readable way
+export const STACK_GROUPS = [
   {
-    label: 'Languages',
-    items: 'Java (Core Java, OOP, Collections, Concurrency), Python, SQL, C, JavaScript (ES6+)',
+    category: 'Languages I write daily',
+    items: ['Java', 'Python', 'SQL', 'C', 'JavaScript (ES6+)'],
   },
   {
-    label: 'Backend Systems',
-    items:
-      'Spring Boot, Spring Security, Spring Data JPA, Hibernate, Django, Django REST Framework, FastAPI, RESTful APIs, JWT, Role-Based Access Control (RBAC), Session Auth, Idempotency, Rate Limiting (Bucket4j)',
+    category: 'Backend & APIs',
+    items: ['Spring Boot', 'Spring Security', 'Hibernate / JPA', 'Django & DRF', 'FastAPI', 'REST APIs', 'JWT & RBAC'],
   },
   {
-    label: 'DSA & Core CS',
-    items:
-      'Data Structures & Algorithms, Object-Oriented Programming (OOP), Database Management Systems (DBMS), Operating Systems, Computer Networks, System Design, ACID Transactions',
+    category: 'Data Structures & CS Foundations',
+    items: ['Data Structures & Algorithms', 'System Design Basics', 'ACID Transactions', 'DBMS', 'Operating Systems', 'Computer Networks'],
   },
   {
-    label: 'AI & Agentic Systems',
-    items:
-      'LangGraph, LangChain, Retrieval-Augmented Generation (RAG), ChromaDB, HuggingFace, Pydantic Structured Output, OpenAI / Gemini / Groq APIs, Scikit-learn, TensorFlow, Keras, OpenCV, MediaPipe, NLTK',
+    category: 'AI & Machine Learning',
+    items: ['LangGraph', 'LangChain', 'RAG (ChromaDB)', 'Gemini / Groq / OpenAI APIs', 'Scikit-learn', 'TensorFlow', 'OpenCV', 'MediaPipe'],
   },
   {
-    label: 'Databases & Caching',
-    items: 'PostgreSQL, MySQL, MongoDB, Caffeine Cache, Redis, B-Tree Indexing, Connection Pooling',
+    category: 'Databases & Storage',
+    items: ['PostgreSQL', 'MySQL', 'MongoDB', 'Caffeine In-Memory Cache', 'Redis'],
   },
   {
-    label: 'Cloud & Infrastructure',
-    items: 'AWS (EC2, S3, RDS), Docker, GitHub Actions, CI/CD Pipelines, Linux/Bash, Git, Postman',
+    category: 'Cloud, DevOps & Tools',
+    items: ['AWS (EC2, S3, RDS)', 'Docker', 'GitHub Actions (CI/CD)', 'Git', 'Linux / Bash', 'Postman'],
   },
   {
-    label: 'Testing & Engineering',
-    items: 'JUnit 5, Mockito, Pytest, API Integration Testing, Agile/Scrum, Code Reviews',
+    category: 'Testing & Code Quality',
+    items: ['JUnit 5', 'Mockito', 'Pytest', 'Postman API Testing', 'Agile / Scrum'],
   },
 ]
 
+// Real certifications and honors
 export const CERTIFICATIONS = [
   {
     title: '2nd Place 🥈 — Code Storm Hackathon (DSA)',
     issuer: 'Noida Institute of Engineering & Technology',
     year: '2026',
     detail:
-      'Secured 2nd place in a high-intensity competitive DSA hackathon with team OUR RAK, demonstrating speed, algorithmic optimization, and clean implementation under contest pressure.',
-    badge: 'Podium Finish 🥈',
+      'Won 2nd place in a high-speed competitive DSA hackathon with team OUR RAK. Evaluated on algorithm speed, optimization, and clean logic.',
+    badge: 'Podium 🥈',
     file: '/certification/2nd possition in dsa hackthon at niet.jpg',
   },
   {
@@ -410,50 +446,50 @@ export const CERTIFICATIONS = [
     issuer: 'Cisco Networking Academy',
     year: '2026',
     detail:
-      'Comprehensive validation covering IP addressing (IPv4/IPv6), subnetting, Ethernet switching, routing protocols, and transport layer reliability.',
-    badge: 'Cisco Certified',
+      'Verified understanding of IP addressing, subnetting, Ethernet switching, routing protocols, and transport layer reliability.',
+    badge: 'Cisco Verified',
     file: '/certification/CCNA-_Introduction_to_Networks_certificate.pdf',
   },
   {
-    title: 'Infosys Springboard Virtual Internship 6.0 Certificate',
+    title: 'Infosys Springboard Virtual Internship Certificate',
     issuer: 'Infosys Springboard',
     year: '2025',
     detail:
-      'Java Full Stack Development internship completion with InsurAI project delivery, enterprise architecture standards, and AWS deployment.',
+      'Completed the intensive Java Full Stack Development internship, building and deploying the InsurAI enterprise platform on AWS.',
     badge: 'Infosys Official',
     file: '/certification/Infosys_Internship_Certificate.pdf',
   },
   {
-    title: 'Java Spring Boot Full Stack: eCommerce Project Masterclass',
+    title: 'Java Spring Boot Full Stack: eCommerce Masterclass',
     issuer: 'EmbarkX / Udemy',
     year: '2026',
     detail:
-      'Production-grade full-stack architecture: Spring Boot, Spring Security, JWT, Stripe payment integration, multi-vendor vendor/admin portals, and AWS cloud deployment.',
-    badge: 'Udemy Verified',
+      'Built a complete enterprise eCommerce backend with Spring Boot, Spring Security, JWT, Stripe payments, and AWS deployment.',
+    badge: 'Udemy Certified',
   },
   {
     title: 'Amazon Web Services (AWS) - Zero to Hero',
     issuer: 'Udemy',
     year: '2026',
     detail:
-      'Hands-on cloud engineering covering Amazon EC2, S3, RDS database instances, IAM security policies, VPC networking, and CloudWatch telemetry.',
+      'Hands-on cloud architecture covering Amazon EC2, S3, RDS database servers, IAM security policies, and CloudWatch monitoring.',
     badge: 'AWS Cloud',
   },
   {
     title: 'Career Essentials in Generative AI',
-    issuer: 'Microsoft and LinkedIn',
+    issuer: 'Microsoft & LinkedIn',
     year: '2026',
     detail:
-      'Covers foundational large language model mechanics, ethical AI governance, responsible deployment, and generative productivity tools.',
+      'Foundational generative AI architecture, large language models, prompt workflows, and ethical AI implementation.',
     badge: 'Microsoft Certified',
     file: '/certification/microsoft and linkdin.jpg',
   },
   {
-    title: 'Infosys Springboard Advanced Track Certifications',
+    title: 'Infosys Springboard Advanced Track Certificates',
     issuer: 'Infosys Springboard',
     year: '2025–2026',
     detail:
-      'Certified in Introduction to Machine Learning & AI, Natural Language Processing using Python, Deep Learning for Developers, and Database Management Systems.',
+      'Certified in Machine Learning & AI, Natural Language Processing using Python, Deep Learning for Developers, and DBMS.',
     badge: 'Infosys Tracks',
   },
 ]

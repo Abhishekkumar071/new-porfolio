@@ -4,14 +4,14 @@ import PipelineExplorer from './PipelineExplorer.jsx'
 import { EntriesHead } from './Entries.jsx'
 import { ExternalIcon } from './Icons.jsx'
 
-const CATEGORIES = ['All', 'Backend Systems', 'Agentic AI', 'Full-Stack & Cloud', 'AI & Data Engineering']
+const CATEGORIES = ['All', 'Backend Systems', 'Practical AI', 'Full-Stack & Cloud']
 
 function Project({ p, open, onToggle }) {
   const panelId = `detail-${p.id}`
   const hasMedia = Boolean(p.image)
 
   return (
-    <div className="entry">
+    <div className={`entry ${open ? 'entry--open' : ''}`}>
       <button
         type="button"
         className="entry__row entry__btn cols"
@@ -21,7 +21,7 @@ function Project({ p, open, onToggle }) {
       >
         <span className="entry__date c-date">
           <span className="entry__year">{p.date}</span>
-          {p.category ? <span className="entry__cat-tag">{p.category}</span> : null}
+          <span className="entry__cat-tag">{p.category}</span>
         </span>
         <span className="c-title">
           <span className="entry__title">{p.title}</span>
@@ -42,30 +42,41 @@ function Project({ p, open, onToggle }) {
         <div className="detail__clip">
           <div className={hasMedia ? 'detail__body detail__body--media' : 'detail__body'}>
             <div className="detail__text">
-              <p className="detail__summary">{p.summary}</p>
-              <ul className="detail__points">
-                {p.points.map((pt) => (
-                  <li key={pt}>{pt}</li>
-                ))}
-              </ul>
+              <div className="detail__section">
+                <h4 className="detail__heading">The Problem</h4>
+                <p className="detail__summary">{p.summary}</p>
+              </div>
+
+              <div className="detail__section">
+                <h4 className="detail__heading">What I Built</h4>
+                <ul className="detail__points">
+                  {p.whatIBuilt.map((pt) => (
+                    <li key={pt}>{pt}</li>
+                  ))}
+                </ul>
+              </div>
+
               <p className="detail__stack">
-                <span>Built with</span> {p.stack}
+                <span>Built with:</span> {p.stack}
               </p>
+
               {p.links && p.links.length > 0 ? (
-                <p className="detail__links">
+                <div className="detail__links">
                   {p.links.map((l) => (
-                    <a key={l.href} className="link" href={l.href} target="_blank" rel="noreferrer">
+                    <a key={l.href} className="link btn btn--small" href={l.href} target="_blank" rel="noreferrer">
                       {l.label} <ExternalIcon />
                     </a>
                   ))}
-                </p>
+                </div>
               ) : null}
             </div>
+
             {hasMedia ? (
               <figure className="shot">
                 <img src={p.image} alt={p.imageAlt} loading="lazy" />
               </figure>
             ) : null}
+
             {p.flow ? (
               <div className="detail__flow">
                 <PipelineExplorer steps={FLOW} />
@@ -89,7 +100,7 @@ export default function Work() {
 
   return (
     <div>
-      <div className="filter-bar" role="tablist" aria-label="Project domain filter">
+      <div className="filter-bar" role="tablist" aria-label="Filter projects by domain">
         {CATEGORIES.map((cat) => (
           <button
             key={cat}
